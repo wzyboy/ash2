@@ -2,7 +2,6 @@
 A Flask-based web server that serves Twitter Archive.
 '''
 
-import os
 import re
 import json
 import pprint
@@ -59,52 +58,21 @@ class TweetsDatabase(Mapping):
         return tweet
 
     def __iter__(self):
-        cur = self.db.cursor()
-        for row in cur.execute('select id from tweets order by id asc'):
-            yield row['id']
+        resp = self.db.sort('@timestamp')[:1000].execute()
+        for tweet in resp:
+            yield tweet.id
 
     def __reversed__(self):
-        cur = self.db.cursor()
-        for row in cur.execute('select id from tweets order by id desc'):
-            yield row['id']
+        resp = self.db.sort('-@timestamp')[:1000].execute()
+        for tweet in resp:
+            yield tweet.id
 
     def __len__(self):
-        cur = self.db.cursor()
-        row = cur.execute('select count(*) as c from tweets').fetchone()
-        return row['c']
-
-    @staticmethod
-    def _row_to_tweet(row):
-        _tweet = row['_source']
-        tweet = json.loads(_tweet)
-        return tweet
+        return self.db.count()
 
     def search(self, keyword=None, user_screen_name=None, limit=100):
-        cur = self.db.cursor()
-
-        # Be careful of little bobby tables
-        # https://xkcd.com/327/
-        _where = []
-        params = {'limit': limit}
-        if keyword:
-            _where.append('text like :keyword')
-            params['keyword'] = '%{}%'.format(keyword)
-        if user_screen_name:
-            _where.append('json_extract(_source, "$.user.screen_name") = :user_screen_name')
-            params['user_screen_name'] = user_screen_name
-
-        # Assemble the SQL
-        where = 'where ' + ' and '.join(_where) if _where else ''
-        sql = 'select * from tweets {} order by id desc limit :limit'.format(where)
-
-        rows = cur.execute(sql, params).fetchall()
-        tweets = [self._row_to_tweet(row) for row in rows]
-        return tweets
-
-    def _sql(self, *args):
-        cur = self.db.cursor()
-        rows = cur.execute(*args).fetchall()
-        return rows
+        resp = self.db.query('match', full_text=keyword)
+        return resp
 
 
 def get_tdb():
@@ -177,7 +145,7 @@ def format_tweet_text(tweet):
     # Link to retweeted status
     retweeted = getattr(tweet, 'retweeted_status', None)
     if retweeted:
-        link = get_tweet_link(retweeted['user']['screen_name'], retweeted['id'])
+        link = get_tweet_link('status', retweeted['id'])
         a = '<a href="{}">RT</a>'.format(link)
         tweet_text = tweet_text.replace('RT', a, 1)
 
