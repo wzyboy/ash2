@@ -1,8 +1,9 @@
 
 class Config:
 
-    # SQLite filename
-    T_SQLITE = 'tweets.db'
+    # Elasticsearch
+    T_ES_HOST = 'localhost:9200'
+    T_ES_INDEX = 'tweets-*'
 
     # Where to load media files
     # Choices: fs, s3, twitter
@@ -25,7 +26,7 @@ class Config:
     #T_SEARCH_BASIC_AUTH = {'username': 'foo', 'password': 'bar'}
 
     # Uncomment to enable external Tweets support. If a Tweet is not found in
-    # local database, it will be fetched from Twitter API.
+    # the database, it will be fetched from Twitter API.
     # Python library "requests" is required for this feature.
     #T_EXTERNAL_TWEETS = True
     #T_TWITTER_KEY = 'consumer key'
