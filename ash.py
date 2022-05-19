@@ -85,19 +85,11 @@ def get_tdb():
 
 
 @app.template_global('get_tweet_link')
-def get_tweet_link(screen_name, tweet_id):
-
-    twitter_link = 'https://twitter.com/{}/status/{}'.format(screen_name, tweet_id)
-    self_link = flask.url_for('get_tweet', tweet_id=tweet_id, ext='html')
-
-    if app.config.get('T_EXTERNAL_TWEETS'):
-        return self_link
-
-    tdb = get_tdb()
-    if tweet_id in tdb:
-        return self_link
+def get_tweet_link(screen_name, tweet_id, original_link=False):
+    if original_link:
+        return 'https://twitter.com/{}/status/{}'.format(screen_name, tweet_id)
     else:
-        return twitter_link
+        return flask.url_for('get_tweet', tweet_id=tweet_id, ext='html')
 
 
 @app.template_filter('format_tweet_text')
