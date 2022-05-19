@@ -6,7 +6,6 @@ import os
 import re
 import json
 import pprint
-import sqlite3
 import itertools
 from operator import itemgetter
 from functools import lru_cache
@@ -15,6 +14,8 @@ from collections.abc import Mapping
 
 import flask
 import requests
+from elasticsearch import Elasticsearch
+from elasticsearch_dsl import Search
 
 
 app = flask.Flask(
@@ -44,19 +45,17 @@ if app.config.get('T_EXTERNAL_TWEETS'):
 
 class TweetsDatabase(Mapping):
 
-    def __init__(self, db_name):
-        self.db = sqlite3.connect(db_name)
-        self.db.row_factory = sqlite3.Row
+    def __init__(self, es_host, es_index):
+        es = Elasticsearch(es_host)
+        self.db = Search(using=es, index=es_index)
 
     def __getitem__(self, tweet_id):
-        if not isinstance(tweet_id, int):
-            raise TypeError('Tweet ID should be int')
-        cur = self.db.cursor()
-        row = cur.execute('select * from tweets where id = ?', (tweet_id,)).fetchone()
-        if row is None:
+        resp = self.db.query('term', id=tweet_id).execute()
+        if len(resp) == 0:
             raise KeyError('Tweet ID {} not found'.format(tweet_id))
         else:
-            tweet = self._row_to_tweet(row)
+            tweet = resp[0]
+            print(tweet)
         return tweet
 
     def __iter__(self):
@@ -110,8 +109,10 @@ class TweetsDatabase(Mapping):
 
 def get_tdb():
     if not hasattr(flask.g, 'tdb'):
-        db_name = app.config['T_SQLITE']
-        flask.g.tdb = TweetsDatabase(db_name)
+        flask.g.tdb = TweetsDatabase(
+            app.config['T_ES_HOST'],
+            app.config['T_ES_INDEX']
+        )
     return flask.g.tdb
 
 
@@ -141,8 +142,8 @@ def format_tweet_text(tweet):
 
     # Replace t.co-wrapped URLs with their original URLs
     urls = itertools.chain(
-        tweet['entities'].get('urls', []),
-        tweet['entities'].get('media', []),
+        getattr(tweet.entities, 'urls', []),
+        getattr(tweet.entities, 'media', []),
     )
     for u in urls:
         # t.co wraps everything *looks like* a URL, even bare domains. We bring
@@ -157,7 +158,7 @@ def format_tweet_text(tweet):
         tweet_text = tweet_text.replace(u['url'], a)
 
     # Linkify hashtags
-    hashtags = tweet['entities'].get('hashtags', [])
+    hashtags = getattr(tweet.entities, 'hashtags', [])
     for h in hashtags:
         hashtag = '#{}'.format(h['text'])
         link = 'https://twitter.com/hashtag/{}'.format(h['text'])
@@ -165,7 +166,7 @@ def format_tweet_text(tweet):
         tweet_text = tweet_text.replace(hashtag, a)
 
     # Linkify user mentions
-    users = tweet['entities'].get('user_mentions', [])
+    users = getattr(tweet.entities, 'user_mentions', [])
     for user in users:
         # case-insensitive and case-preserving
         at_user = r'(?i)@({})\b'.format(user['screen_name'])
@@ -174,7 +175,7 @@ def format_tweet_text(tweet):
         tweet_text = re.sub(at_user, a, tweet_text)
 
     # Link to retweeted status
-    retweeted = tweet.get('retweeted_status')
+    retweeted = getattr(tweet, 'retweeted_status', None)
     if retweeted:
         link = get_tweet_link(retweeted['user']['screen_name'], retweeted['id'])
         a = '<a href="{}">RT</a>'.format(link)
@@ -277,17 +278,17 @@ def get_tweet(tweet_id, ext):
         entities = tweet['extended_entities']
     except KeyError:
         entities = tweet['entities']
-    media = entities.get('media', [])
-    for m in media:
-        media_url = m['media_url_https']
-        media_key = os.path.basename(media_url)
-        if _is_external_tweet or app.config['T_MEDIA_FROM'] == 'twitter':
-            img_src = media_url
-        elif app.config['T_MEDIA_FROM'] == 'fs':
-            img_src = flask.url_for('get_media', filename=media_key)
-        elif app.config['T_MEDIA_FROM'] == 's3':
-            img_src = get_s3_link(media_key)
-        images_src.append(img_src)
+    #media = entities.get('media', [])
+    #for m in media:
+    #    media_url = m['media_url_https']
+    #    media_key = os.path.basename(media_url)
+    #    if _is_external_tweet or app.config['T_MEDIA_FROM'] == 'twitter':
+    #        img_src = media_url
+    #    elif app.config['T_MEDIA_FROM'] == 'fs':
+    #        img_src = flask.url_for('get_media', filename=media_key)
+    #    elif app.config['T_MEDIA_FROM'] == 's3':
+    #        img_src = get_s3_link(media_key)
+    #    images_src.append(img_src)
 
     # Render HTML
     rendered = flask.render_template(

@@ -13,6 +13,6 @@ vim: ft=jinja.html:
     <footer class="author">— <span title="@{{ tweet['retweeted_status']['user']['screen_name'] }}">{{ tweet['retweeted_status']['user']['name'] }}</span> @ <a href="{{ get_tweet_link(tweet['retweeted_status']['user']['screen_name'], tweet['retweeted_status']['id']) }}">{{ tweet['retweeted_status']['created_at'] }}</a> via {{ tweet['retweeted_status']['source'] | safe }}</footer>
   </blockquote>
   {%- endif %}
-  <footer class="author">— <span title="@{{ tweet['user']['screen_name'] }}">{{ tweet['user']['name'] }}</span> @ <a href="{{ get_tweet_link(tweet['user']['screen_name'], tweet['id']) }}">{{ tweet['created_at'] }}</a> via {{ tweet['source'] | safe }}</footer>
+  <footer class="author">— <span title="@???">???</span> @ <a href="{{ get_tweet_link('status', tweet['id']) }}">{{ tweet['created_at'] }}</a> via {{ tweet['source'] | safe }}</footer>
 </blockquote>
 </article>
