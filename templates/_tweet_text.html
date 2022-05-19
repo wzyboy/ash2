@@ -4,7 +4,7 @@ vim: ft=jinja.html:
 <article class="tweet">
 <blockquote class="tweet">
   {%- if tweet['in_reply_to_status_id'] %}
-  <small class="in-reply-to"><a href="{{ tweet | in_reply_to_link }}">(in reply to {{ tweet['in_reply_to_screen_name'] }})</a></small>
+  <small class="in-reply-to"><a href="{{ tweet | in_reply_to_link }}">(in reply to ???)</a></small>
   {%- endif %}
   <p class="tweet-text">{{ tweet | format_tweet_text | safe }}<p>
   {%- if tweet['retweeted_status'] %}

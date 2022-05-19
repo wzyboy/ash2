@@ -71,7 +71,7 @@ class TweetsDatabase(Mapping):
         return self.db.count()
 
     def search(self, keyword=None, user_screen_name=None, limit=100):
-        resp = self.db.query('match', full_text=keyword)
+        resp = self.db.query('match', full_text=keyword).sort('-@timestamp')[:limit]
         return resp
 
 
@@ -154,7 +154,7 @@ def format_tweet_text(tweet):
 
 @app.template_filter('in_reply_to_link')
 def in_reply_to_link(tweet):
-    return get_tweet_link(tweet['in_reply_to_screen_name'], tweet['in_reply_to_status_id'])
+    return get_tweet_link('status', tweet['in_reply_to_status_id'])
 
 
 @app.template_filter('s3_link')
@@ -288,8 +288,8 @@ def search_tweet(ext):
 
     tdb = get_tdb()
     user_list = [
-        row['u'] for row in
-        tdb._sql('select json_extract(_source, "$.user.screen_name") as u from tweets group by u')
+        #row['u'] for row in
+        #tdb._sql('select json_extract(_source, "$.user.screen_name") as u from tweets group by u')
     ]
 
     user = flask.request.args.get('u', '')
@@ -300,7 +300,7 @@ def search_tweet(ext):
                 keyword=keyword,
                 user_screen_name=user,
             ),
-            key=itemgetter('id'),
+            key=lambda x: int(x.id),
             reverse=True
         )
     else:
