@@ -1,0 +1,47 @@
+{#-
+vim: ft=jinja.html:
+-#}
+{% extends 'layout.html' %}
+
+
+{% block title %}
+{% if keyword %}
+Tweets - Search "{{ keyword }}" ({{ tweets | length }})
+{% else %}
+Tweets - Search
+{% endif %}
+{% endblock %}
+
+
+{% block body %}
+
+  <section class="search-box">
+    <form action="" method="get">
+      <input type="text" name="q" value="{{ keyword }}" required/>
+      <select name="u">
+        <option value="">(all users)</option>
+        {%- for i in user_list %}
+        <option value="{{ i }}"{% if i == user %} selected{% endif %}>{{ i }}</option>
+        {%- endfor %}
+      </select>
+      <input type="submit" value="Search" />
+    </form>
+  </section>
+
+  <hr />
+
+  <section class="tweet">
+  {%- for tweet in tweets %}
+  {% include '_tweet_text.html' %}
+  {%- endfor %}
+  </section>
+
+{% endblock %}
+
+
+{% block footer %}
+    <ul class="api-links">
+      <li><a href="{{ url_for('search_tweet', ext='txt', q=keyword) }}">.txt</a></li>
+      <li><a href="{{ url_for('search_tweet', ext='json', q=keyword) }}">.json</a></li>
+    </ul>
+{% endblock %}

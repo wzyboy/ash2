@@ -1,0 +1,29 @@
+a {
+  color: #0084b4;
+  text-decoration-line: none;
+}
+
+p.tweet-text {
+  font-family: sans-serif;
+  white-space: pre-wrap;
+}
+
+blockquote {
+  background: #f9f9f9;
+  border-left: 10px solid #ccc;
+  margin: 1.5em 10px;
+  padding: 0.5em 10px;
+  quotes: "\201C""\201D";
+}
+
+blockquote:before {
+  color: #ccc;
+  content: open-quote;
+  font-size: 4em;
+  line-height: 0.1em;
+  vertical-align: -0.4em;
+}
+
+ul.api-links {
+  font-family: monospace;
+}

@@ -1,0 +1,28 @@
+{#-
+vim: ft=jinja.html:
+-#}
+{% extends 'layout.html' %}
+
+
+{% block title %}
+Twitter Archive
+{% endblock %}
+
+
+{% block body %}
+
+  <h1>Twitter Archive</h1>
+
+  <p>Total number of Tweets: {{ total_tweets }}. You could search your tweets <a href="{{ url_for('search_tweet', ext='html') }}">here</a>.</p>
+
+  <p>Here are the latest {{ tweets | length }} tweets:</p>
+
+  <hr />
+
+  <section class="tweet">
+  {%- for tweet in tweets %}
+  {% include '_tweet_text.html' %}
+  {%- endfor %}
+  </section>
+
+{% endblock %}

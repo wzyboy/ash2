@@ -1,0 +1,30 @@
+{#-
+vim: ft=jinja.html:
+-#}
+{% extends 'layout.html' %}
+
+
+{% block title %}Tweet ID {{ tweet['id'] }}{% endblock %}
+
+
+{% block body %}
+
+  <section class="tweet">
+  {% include '_tweet_text.html' %}
+  </section>
+
+  <section class="media">
+    {%- for src in images_src %}
+    <article><a href="{{ src }}"><img width="300px" src="{{ src }}" alt="tweet image {{ src }}" /></a></article>
+    {%- endfor %}
+  </section>
+
+{% endblock %}
+
+
+{% block footer %}
+    <ul class="api-links">
+      <li><a href="{{ url_for('get_tweet', tweet_id=tweet['id'], ext='txt') }}">.txt</a></li>
+      <li><a href="{{ url_for('get_tweet', tweet_id=tweet['id'], ext='json') }}">.json</a></li>
+    </ul>
+{% endblock %}
