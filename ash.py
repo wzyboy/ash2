@@ -2,6 +2,7 @@
 A Flask-based web server that serves Twitter Archive.
 '''
 
+import os
 import re
 import json
 import pprint
@@ -238,17 +239,19 @@ def get_tweet(tweet_id, ext):
         entities = tweet['extended_entities']
     except KeyError:
         entities = tweet['entities']
-    #media = entities.get('media', [])
-    #for m in media:
-    #    media_url = m['media_url_https']
-    #    media_key = os.path.basename(media_url)
-    #    if _is_external_tweet or app.config['T_MEDIA_FROM'] == 'twitter':
-    #        img_src = media_url
-    #    elif app.config['T_MEDIA_FROM'] == 'fs':
-    #        img_src = flask.url_for('get_media', filename=media_key)
-    #    elif app.config['T_MEDIA_FROM'] == 's3':
-    #        img_src = get_s3_link(media_key)
-    #    images_src.append(img_src)
+    media = getattr(entities, 'media', [])
+    for m in media:
+        media_url = m['media_url_https']
+        media_key = os.path.basename(media_url)
+        if _is_external_tweet or app.config['T_MEDIA_FROM'] == 'twitter':
+            img_src = media_url
+        elif app.config['T_MEDIA_FROM'] == 'fs':
+            img_src = flask.url_for('get_media', filename=media_key)
+        elif app.config['T_MEDIA_FROM'] == 's3':
+            img_src = get_s3_link(media_key)
+        else:
+            img_src = ''
+        images_src.append(img_src)
 
     # Render HTML
     rendered = flask.render_template(
