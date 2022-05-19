@@ -71,7 +71,7 @@ class TweetsDatabase(Mapping):
         return self.db.count()
 
     def search(self, keyword=None, user_screen_name=None, limit=100):
-        resp = self.db.query('match', full_text=keyword).sort('-@timestamp')[:limit]
+        resp = self.db.query('match', full_text=keyword).sort('-@timestamp')[:limit].execute()
         return resp
 
 
@@ -102,8 +102,8 @@ def format_tweet_text(tweet):
 
     # Replace t.co-wrapped URLs with their original URLs
     urls = itertools.chain(
-        getattr(tweet.entities, 'urls', []),
-        getattr(tweet.entities, 'media', []),
+        getattr(tweet['entities'], 'urls', []),
+        getattr(tweet['entities'], 'media', []),
     )
     for u in urls:
         # t.co wraps everything *looks like* a URL, even bare domains. We bring
@@ -118,7 +118,7 @@ def format_tweet_text(tweet):
         tweet_text = tweet_text.replace(u['url'], a)
 
     # Linkify hashtags
-    hashtags = getattr(tweet.entities, 'hashtags', [])
+    hashtags = getattr(tweet['entities'], 'hashtags', [])
     for h in hashtags:
         hashtag = '#{}'.format(h['text'])
         link = 'https://twitter.com/hashtag/{}'.format(h['text'])
@@ -126,7 +126,7 @@ def format_tweet_text(tweet):
         tweet_text = tweet_text.replace(hashtag, a)
 
     # Linkify user mentions
-    users = getattr(tweet.entities, 'user_mentions', [])
+    users = getattr(tweet['entities'], 'user_mentions', [])
     for user in users:
         # case-insensitive and case-preserving
         at_user = r'(?i)@({})\b'.format(user['screen_name'])
