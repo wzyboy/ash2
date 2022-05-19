@@ -27,7 +27,6 @@ class Config:
 
     # Uncomment to enable external Tweets support. If a Tweet is not found in
     # the database, it will be fetched from Twitter API.
-    # Python library "requests" is required for this feature.
     #T_EXTERNAL_TWEETS = True
     #T_TWITTER_KEY = 'consumer key'
     #T_TWITTER_SECRET = 'consumer secret'

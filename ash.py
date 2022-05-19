@@ -14,12 +14,7 @@ from urllib.parse import urlparse
 from collections.abc import Mapping
 
 import flask
-try:
-    import requests
-except ImportError:
-    HAS_REQUESTS = False
-else:
-    HAS_REQUESTS = True
+import requests
 
 
 app = flask.Flask(
@@ -31,9 +26,6 @@ app.config.from_object('config.Config')
 
 # Set up external Tweets support
 if app.config.get('T_EXTERNAL_TWEETS'):
-
-    if not HAS_REQUESTS:
-        raise RuntimeError('Python library "requests" is required to enable external Tweets support')
 
     # https://developer.twitter.com/en/docs/basics/authentication/api-reference/token
     resp = requests.post(
