@@ -48,16 +48,17 @@ class TweetsDatabase(Mapping):
         self.es = Elasticsearch(es_host)
         self.es_index = es_index
 
-    def _query(self, q):
-        hits = self.es.search(index=self.es_index, query=q)['hits']['hits']
+    def _search(self, **kwargs):
+        hits = self.es.search(index=self.es_index, **kwargs)['hits']['hits']
         return [hit['_source'] for hit in hits]
 
     def __getitem__(self, tweet_id):
-        resp = self._query({
-            'term': {
-                'id': tweet_id
-            }
-        })
+        resp = self._search(
+            query={
+                'term': {
+                    'id': tweet_id
+                }
+            })
         if len(resp) == 0:
             raise KeyError('Tweet ID {} not found'.format(tweet_id))
         else:
@@ -66,39 +67,38 @@ class TweetsDatabase(Mapping):
         return tweet
 
     def __iter__(self):
-        resp = self._query({
-            'sort': ['@timestamp'],
-            'from': 0,
-            'size': 1000,
-        })
+        resp = self._search(
+            sort=['@timestamp'],
+            size=1000,
+        )
         for tweet in resp:
-            yield tweet.id
+            yield tweet['id']
 
     def __reversed__(self):
-        resp = self._query({
-            'sort': [{
+        resp = self._search(
+            sort=[{
                 '@timestamp': {'order': 'desc'}
             }],
-            'from': 0,
-            'size': 1000,
-        })
+            size=1000,
+        )
         for tweet in resp:
-            yield tweet.id
+            yield tweet['id']
 
     def __len__(self):
         return self.es.count(index=self.es_index)['count']
 
     def search(self, keyword=None, user_screen_name=None, limit=100):
-        resp = self._query({
-            'match': {
-                'full_text': keyword,
+        resp = self._search(
+            query={
+                'match': {
+                    'full_text': keyword,
+                },
             },
-            'sort': [{
+            sort=[{
                 '@timestamp': {'order': 'desc'}
             }],
-            'from': 0,
-            'size': limit,
-        })
+            size=limit,
+        )
         return resp
 
 
@@ -321,7 +321,7 @@ def search_tweet(ext):
                 keyword=keyword,
                 user_screen_name=user,
             ),
-            key=lambda x: int(x.id),
+            key=lambda x: int(x['id']),
             reverse=True
         )
     else:
