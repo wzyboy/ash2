@@ -4,10 +4,8 @@ A Flask-based web server that serves Twitter Archive.
 
 import os
 import re
-import json
 import pprint
 import itertools
-from operator import itemgetter
 from functools import lru_cache
 from urllib.parse import urlparse
 from collections.abc import Mapping
@@ -69,7 +67,7 @@ class TweetsDatabase(Mapping):
     def __iter__(self):
         resp = self._search(
             sort=['@timestamp'],
-            size=1000,
+            #size=1000,
         )
         for tweet in resp:
             yield tweet['id']
@@ -79,7 +77,7 @@ class TweetsDatabase(Mapping):
             sort=[{
                 '@timestamp': {'order': 'desc'}
             }],
-            size=1000,
+            #size=1000,
         )
         for tweet in resp:
             yield tweet['id']
@@ -129,8 +127,8 @@ def format_tweet_text(tweet):
 
     # Replace t.co-wrapped URLs with their original URLs
     urls = itertools.chain(
-        getattr(tweet['entities'], 'urls', []),
-        getattr(tweet['entities'], 'media', []),
+        tweet['entities'].get('urls', []),
+        tweet['entities'].get('media', []),
     )
     for u in urls:
         # t.co wraps everything *looks like* a URL, even bare domains. We bring
@@ -145,7 +143,7 @@ def format_tweet_text(tweet):
         tweet_text = tweet_text.replace(u['url'], a)
 
     # Linkify hashtags
-    hashtags = getattr(tweet['entities'], 'hashtags', [])
+    hashtags = tweet['entities'].get('hashtags', [])
     for h in hashtags:
         hashtag = '#{}'.format(h['text'])
         link = 'https://twitter.com/hashtag/{}'.format(h['text'])
@@ -153,7 +151,7 @@ def format_tweet_text(tweet):
         tweet_text = tweet_text.replace(hashtag, a)
 
     # Linkify user mentions
-    users = getattr(tweet['entities'], 'user_mentions', [])
+    users = tweet['entities'].get('user_mentions', [])
     for user in users:
         # case-insensitive and case-preserving
         at_user = r'(?i)@({})\b'.format(user['screen_name'])
@@ -162,7 +160,7 @@ def format_tweet_text(tweet):
         tweet_text = re.sub(at_user, a, tweet_text)
 
     # Link to retweeted status
-    retweeted = getattr(tweet, 'retweeted_status', None)
+    retweeted = tweet.get('retweeted_status', None)
     if retweeted:
         link = get_tweet_link('status', retweeted['id'])
         a = '<a href="{}">RT</a>'.format(link)
@@ -265,7 +263,7 @@ def get_tweet(tweet_id, ext):
         entities = tweet['extended_entities']
     except KeyError:
         entities = tweet['entities']
-    media = getattr(entities, 'media', [])
+    media = entities.get('media', [])
     for m in media:
         media_url = m['media_url_https']
         media_key = os.path.basename(media_url)
