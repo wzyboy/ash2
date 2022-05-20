@@ -15,7 +15,6 @@ from collections.abc import Mapping
 import flask
 import requests
 from elasticsearch import Elasticsearch
-from elasticsearch_dsl import Search
 
 
 app = flask.Flask(
@@ -46,11 +45,19 @@ if app.config.get('T_EXTERNAL_TWEETS'):
 class TweetsDatabase(Mapping):
 
     def __init__(self, es_host, es_index):
-        es = Elasticsearch(es_host)
-        self.db = Search(using=es, index=es_index)
+        self.es = Elasticsearch(es_host)
+        self.es_index = es_index
+
+    def _query(self, q):
+        hits = self.es.search(index=self.es_index, query=q)['hits']['hits']
+        return [hit['_source'] for hit in hits]
 
     def __getitem__(self, tweet_id):
-        resp = self.db.query('term', id=tweet_id).execute()
+        resp = self._query({
+            'term': {
+                'id': tweet_id
+            }
+        })
         if len(resp) == 0:
             raise KeyError('Tweet ID {} not found'.format(tweet_id))
         else:
@@ -59,20 +66,39 @@ class TweetsDatabase(Mapping):
         return tweet
 
     def __iter__(self):
-        resp = self.db.sort('@timestamp')[:1000].execute()
+        resp = self._query({
+            'sort': ['@timestamp'],
+            'from': 0,
+            'size': 1000,
+        })
         for tweet in resp:
             yield tweet.id
 
     def __reversed__(self):
-        resp = self.db.sort('-@timestamp')[:1000].execute()
+        resp = self._query({
+            'sort': [{
+                '@timestamp': {'order': 'desc'}
+            }],
+            'from': 0,
+            'size': 1000,
+        })
         for tweet in resp:
             yield tweet.id
 
     def __len__(self):
-        return self.db.count()
+        return self.es.count(index=self.es_index)['count']
 
     def search(self, keyword=None, user_screen_name=None, limit=100):
-        resp = self.db.query('match', full_text=keyword).sort('-@timestamp')[:limit].execute()
+        resp = self._query({
+            'match': {
+                'full_text': keyword,
+            },
+            'sort': [{
+                '@timestamp': {'order': 'desc'}
+            }],
+            'from': 0,
+            'size': limit,
+        })
         return resp
 
 
