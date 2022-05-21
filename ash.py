@@ -166,8 +166,9 @@ def format_tweet_text(tweet):
     # true and has a valid "retweeted_status". Tweets that are ingested via
     # Twitter Archive always has "retweeted" set to false (identical to a
     # "traditional" RT.
-    if tweet['retweeted']:
-        link = get_tweet_link('status', tweet['retweeted_status']['id'])
+    retweeted_status = tweet.get('retweeted_status')
+    if retweeted_status:
+        link = get_tweet_link('status', retweeted_status['id'])
         a = '<a href="{}">RT</a>'.format(link)
         tweet_text = tweet_text.replace('RT', a, 1)
 
