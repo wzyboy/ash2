@@ -126,6 +126,8 @@ def format_tweet_text(tweet):
         tweet_text = tweet['text']
 
     # Replace t.co-wrapped URLs with their original URLs
+    # NOTE: for URL-expansion purpose, there are no difference between
+    # extended_entities.media and entities.media
     urls = itertools.chain(
         tweet['entities'].get('urls', []),
         tweet['entities'].get('media', []),
@@ -160,9 +162,12 @@ def format_tweet_text(tweet):
         tweet_text = re.sub(at_user, a, tweet_text)
 
     # Link to retweeted status
-    retweeted = tweet.get('retweeted_status', None)
-    if retweeted:
-        link = get_tweet_link('status', retweeted['id'])
+    # NOTE: As of 2022-05, only tweets ingested via API has "retweeted" set to
+    # true and has a valid "retweeted_status". Tweets that are ingested via
+    # Twitter Archive always has "retweeted" set to false (identical to a
+    # "traditional" RT.
+    if tweet['retweeted']:
+        link = get_tweet_link('status', tweet['retweeted_status']['id'])
         a = '<a href="{}">RT</a>'.format(link)
         tweet_text = tweet_text.replace('RT', a, 1)
 
