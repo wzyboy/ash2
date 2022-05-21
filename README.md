@@ -1,6 +1,8 @@
 # Twitter Archive Server (V2)
 
-The project is useful if you have a protected Twitter account but you still want to show some of your tweets to the public.
+The project is useful if you have a protected Twitter account but you still want to show some of your tweets to the public. 
+
+The project is a partial rewrite of [ash](https://github.com/wzyboy/ash).
 
 ## Features:
 
@@ -10,8 +12,8 @@ The project is useful if you have a protected Twitter account but you still want
 - Full-text search (optional basic auth);
 - Linkify mentions, hashtags, retweets, etc;
 - Restore sanity to t.co-wrapped links and non-links;
-- Load images from Twitter, or on-disk mirror, or S3 mirror;
-- Fetch Tweets from Twitter API if not found in the archive.
+- Load images from Twitter, on-disk mirror, or S3 mirror;
+- Fetch Tweets from Twitter API if not found in the database.
 
 
 ## Setup
@@ -22,7 +24,7 @@ The project is useful if you have a protected Twitter account but you still want
 
 ## Running
 
-Set up a venv is recommended:
+Setting up a venv is recommended:
 
 ```bash
 $ python3 -m venv venv
