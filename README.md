@@ -6,7 +6,7 @@ The project is a partial rewrite of [ash](https://github.com/wzyboy/ash).
 
 ## Features:
 
-- Use Elasticsearch as the backend;
+- Use Elasticsearch as the backend ([simple query syntax](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-simple-query-string-query.html));
 - Multiple archives from different accounts could be merged together;
 - HTML, TXT and JSON output;
 - Full-text search (optional basic auth);
