@@ -61,7 +61,6 @@ class TweetsDatabase(Mapping):
             raise KeyError('Tweet ID {} not found'.format(tweet_id))
         else:
             tweet = resp[0]
-            print(tweet)
         return tweet
 
     def __iter__(self):
@@ -88,8 +87,9 @@ class TweetsDatabase(Mapping):
     def search(self, keyword=None, user_screen_name=None, limit=100):
         resp = self._search(
             query={
-                'match': {
-                    'full_text': keyword,
+                'multi_match': {
+                    'query': keyword,
+                    'fields': ['text', 'full_text'],
                 },
             },
             sort=[{
@@ -320,13 +320,9 @@ def search_tweet(ext):
     user = flask.request.args.get('u', '')
     keyword = flask.request.args.get('q', '')
     if keyword:
-        tweets = sorted(
-            tdb.search(
-                keyword=keyword,
-                user_screen_name=user,
-            ),
-            key=lambda x: int(x['id']),
-            reverse=True
+        tweets = tdb.search(
+            keyword=keyword,
+            user_screen_name=user,
         )
     else:
         tweets = []
