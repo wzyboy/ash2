@@ -87,9 +87,10 @@ class TweetsDatabase(Mapping):
     def search(self, keyword=None, user_screen_name=None, limit=100):
         resp = self._search(
             query={
-                'multi_match': {
+                'simple_query_string': {
                     'query': keyword,
                     'fields': ['text', 'full_text'],
+                    'default_operator': 'AND',
                 },
             },
             sort=[{
