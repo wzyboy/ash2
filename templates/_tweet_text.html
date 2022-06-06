@@ -17,6 +17,6 @@ vim: ft=jinja.html:
   </blockquote>
   {%- endif %}
 
-  <footer class="author">— <span title="@{{ tweet.user.screen_name }}">{{ tweet.user.name }}</span> @ <a href="{{ get_tweet_link('status', tweet['id']) }}">{{ tweet['created_at'] }}</a> via {{ tweet['source'] | safe }}</footer>
+  <footer class="author">— <span title="@{{ tweet.user.screen_name }}">{{ tweet.user.name or tweet.user.screen_name}}</span> @ <a href="{{ get_tweet_link('status', tweet['id']) }}">{{ tweet['created_at'] }}</a> via {{ tweet['source'] | safe }}</footer>
 </blockquote>
 </article>
