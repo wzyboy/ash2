@@ -100,6 +100,23 @@ class TweetsDatabase(Mapping):
         )
         return resp
 
+    def get_user_screen_names(self):
+        resp = self.es.search(
+            index=self.es_index,
+            size=0,
+            aggs={
+                'user_screen_names': {
+                    'terms': {
+                        'field': 'user.screen_name.keyword'
+                    }
+                }
+            },
+        )
+        screen_names = [
+            bucket['key'] for bucket in resp['aggregations']['user_screen_names']['buckets']
+        ]
+        return screen_names
+
 
 def get_tdb():
     if not hasattr(flask.g, 'tdb'):
@@ -313,10 +330,7 @@ def search_tweet(ext):
         return resp
 
     tdb = get_tdb()
-    user_list = [
-        #row['u'] for row in
-        #tdb._sql('select json_extract(_source, "$.user.screen_name") as u from tweets group by u')
-    ]
+    user_list = tdb.get_user_screen_names()
 
     user = flask.request.args.get('u', '')
     keyword = flask.request.args.get('q', '')
