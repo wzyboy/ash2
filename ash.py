@@ -85,20 +85,50 @@ class TweetsDatabase(Mapping):
         return self.es.count(index=self.es_index)['count']
 
     def search(self, keyword=None, user_screen_name=None, limit=100):
+        keyword_query = {
+            'simple_query_string': {
+                'query': keyword,
+                'fields': ['text', 'full_text'],
+                'default_operator': 'AND',
+            }
+        }
+        user_query = {
+            'term': {
+                'user.screen_name.keyword': user_screen_name
+            }
+        }
+        compound_query = {
+            'bool': {
+                'must': keyword_query,
+            }
+        }
+        if user_screen_name:
+            compound_query['bool']['filter'] = user_query
         resp = self._search(
-            query={
-                'simple_query_string': {
-                    'query': keyword,
-                    'fields': ['text', 'full_text'],
-                    'default_operator': 'AND',
-                },
-            },
+            query=compound_query,
             sort=[{
                 '@timestamp': {'order': 'desc'}
             }],
             size=limit,
         )
         return resp
+
+    def get_user_screen_names(self):
+        resp = self.es.search(
+            index=self.es_index,
+            size=0,
+            aggs={
+                'user_screen_names': {
+                    'terms': {
+                        'field': 'user.screen_name.keyword'
+                    }
+                }
+            },
+        )
+        screen_names = [
+            bucket['key'] for bucket in resp['aggregations']['user_screen_names']['buckets']
+        ]
+        return screen_names
 
 
 def get_tdb():
@@ -313,10 +343,7 @@ def search_tweet(ext):
         return resp
 
     tdb = get_tdb()
-    user_list = [
-        #row['u'] for row in
-        #tdb._sql('select json_extract(_source, "$.user.screen_name") as u from tweets group by u')
-    ]
+    user_list = tdb.get_user_screen_names()
 
     user = flask.request.args.get('u', '')
     keyword = flask.request.args.get('q', '')
