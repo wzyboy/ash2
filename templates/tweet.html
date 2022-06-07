@@ -9,15 +9,31 @@ vim: ft=jinja.html:
 
 {% block body %}
 
-  <section class="tweet">
-  {% include '_tweet_text.html' %}
-  </section>
+  <article class="tweet-card">
 
-  <section class="media">
-    {%- for src in images_src %}
-    <article><a href="{{ src }}"><img width="300px" src="{{ src }}" alt="tweet image {{ src }}" /></a></article>
-    {%- endfor %}
-  </section>
+    <div class="author">
+      <div class="avatar"></div>
+      <div class="names">
+          <div class="name">{{ tweet.user.name or tweet.user.screen_name }}</div>
+          <div class="screen-name">@{{ tweet.user.screen_name }}</div>
+      </div>
+    </div>
+
+    <div class="text">
+      <div class="in-reply-to"></div>
+      <div class="full-text">{{ tweet.full_text or tweet.text }}</div>
+    </div>
+
+    <div class="media">
+        {%- for src in images_src %}
+        <article><a href="{{ src }}"><img width="300px" src="{{ src }}" alt="tweet image {{ src }}" /></a></article>
+        {%- endfor %}
+    </div>
+
+    <div class="timestamp">{{ tweet.created_at }}</div>
+
+    <div class="actions"></div>
+  </article>
 
 {% endblock %}
 
