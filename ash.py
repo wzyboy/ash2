@@ -85,14 +85,27 @@ class TweetsDatabase(Mapping):
         return self.es.count(index=self.es_index)['count']
 
     def search(self, keyword=None, user_screen_name=None, limit=100):
+        keyword_query = {
+            'simple_query_string': {
+                'query': keyword,
+                'fields': ['text', 'full_text'],
+                'default_operator': 'AND',
+            }
+        }
+        user_query = {
+            'term': {
+                'user.screen_name.keyword': user_screen_name
+            }
+        }
+        compound_query = {
+            'bool': {
+                'must': keyword_query,
+            }
+        }
+        if user_screen_name:
+            compound_query['bool']['filter'] = user_query
         resp = self._search(
-            query={
-                'simple_query_string': {
-                    'query': keyword,
-                    'fields': ['text', 'full_text'],
-                    'default_operator': 'AND',
-                },
-            },
+            query=compound_query,
             sort=[{
                 '@timestamp': {'order': 'desc'}
             }],
