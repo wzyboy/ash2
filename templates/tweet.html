@@ -29,6 +29,7 @@ vim: ft=jinja.html:
         <div class="full-text">{{ tweet | format_tweet_text | safe }}</div>
     </div>
 
+    {%- if images_src %}
     <div class="media">
         {%- for src in images_src %}
         <div class="media-item">
@@ -36,6 +37,7 @@ vim: ft=jinja.html:
         </div>
         {%- endfor %}
     </div>
+    {%- endif %}
 
     <div class="timestamp">{{ tweet.created_at }}</div>
 

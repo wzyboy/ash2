@@ -452,7 +452,7 @@ a:visited {
   line-height: 20px;
 }
 .tweet-card .actions .action-item .action-icon {
-  color: rgb(83, 100, 113);
+  color: inherit;
   width: 32px;
   height: 32px;
   display: flex;
@@ -461,6 +461,12 @@ a:visited {
 }
 .tweet-card .actions .action-item .action-icon svg {
   height: 1.25em;
+}
+.tweet-card .actions .action-item .action-label a {
+  color: inherit;
+}
+.tweet-card .actions .action-item .action-label a:hover {
+  text-decoration: underline;
 }
 .tweet-card .view-on-twitter {
   padding-top: 4px;

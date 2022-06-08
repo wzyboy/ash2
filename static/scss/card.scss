@@ -124,7 +124,7 @@
             line-height: 20px;
 
             .action-icon {
-                color: rgb(83, 100, 113);
+                color: inherit;
                 width: 32px;
                 height: 32px;
 
@@ -133,6 +133,15 @@
                 justify-content: center;
                 svg {
                     height: 1.25em;
+                }
+            }
+
+            .action-label {
+                a {
+                    color: inherit;
+                    &:hover {
+                        text-decoration: underline;
+                    }
                 }
             }
         }
