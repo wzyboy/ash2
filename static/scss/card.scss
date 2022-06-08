@@ -29,6 +29,15 @@
             display: block;
             width: 48px;
             height: 48px;
+            img, svg {
+                height: calc(100% - 4px);
+                width: calc(100% - 4px);
+                border-radius: 9999px;
+            }
+            svg {
+                color: lightgrey;
+                fill: currentcolor;
+            }
         }
 
         .names {

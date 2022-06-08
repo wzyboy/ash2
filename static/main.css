@@ -371,6 +371,15 @@ a:visited {
   width: 48px;
   height: 48px;
 }
+.tweet-card .author .avatar img, .tweet-card .author .avatar svg {
+  height: calc(100% - 4px);
+  width: calc(100% - 4px);
+  border-radius: 9999px;
+}
+.tweet-card .author .avatar svg {
+  color: lightgrey;
+  fill: currentcolor;
+}
 .tweet-card .author .names {
   margin: 0 4px;
   display: flex;
