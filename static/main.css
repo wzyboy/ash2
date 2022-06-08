@@ -92,6 +92,19 @@ ul.api-links {
   font-size: 20px;
   font-weight: 400;
 }
+.tweet-card .media {
+  margin-top: 12px;
+  border: 1px solid rgb(207, 217, 222);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+}
+.tweet-card .media .media-item {
+  margin-bottom: 1px;
+}
+.tweet-card .media .media-item img {
+  width: 100%;
+}
 .tweet-card .timestamp {
   height: 32px;
   margin-top: 2px;
