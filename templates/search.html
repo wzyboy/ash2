@@ -30,11 +30,7 @@ Tweets - Search
 
   <hr />
 
-  <section class="tweet">
-  {%- for tweet in tweets %}
-  {% include '_tweet_text.html' %}
-  {%- endfor %}
-  </section>
+  {% include '_tweet_list.html' %}
 
 {% endblock %}
 
