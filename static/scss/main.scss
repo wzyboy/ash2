@@ -1,2 +1,11 @@
-@import "ash1";
+@import "normalize";
+
+a {
+    text-decoration: none;
+    color: rgb(0, 111, 214);
+    &:visited {
+        color: rgb(0, 111, 214);
+    }
+}
+
 @import "card";
