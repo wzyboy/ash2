@@ -3,7 +3,7 @@
 .tweet-card {
     min-width: 250px;
     max-width: 550px;
-    margin: 0 auto;
+    margin: 2em auto;
 
     padding-top: 12px;
     padding-bottom: 4px;
@@ -110,6 +110,12 @@
         font-weight: 400;
         font-size: 15px;
         line-height: 20px;
+        a {
+            color: inherit;
+            &:hover {
+                text-decoration: underline;
+            }
+        }
     }
 
     .actions {
