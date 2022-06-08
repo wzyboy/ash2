@@ -1,0 +1,85 @@
+/* Tweet List */
+
+.tweet-list {
+    max-width: 650px;
+    margin: 2em auto;
+    border: 1px solid rgb(207, 217, 222);
+    border-radius: 12px;
+    font-family: Roboto, sans-serif;
+
+    .tweet-list-item {
+        display: flex;
+        flex-direction: row;
+        padding: 12px 16px;
+
+        border-bottom: 1px solid rgb(207, 217, 222);
+        &:nth-last-child(1) {
+            border-bottom: none;
+        }
+
+        &:hover {
+            background-color: rgba(0, 0, 0, 0.03);
+        }
+
+        .avatar-col {
+            display: flex;
+            flex-direction: column;
+            margin-right: 12px;
+            .avatar {
+                display: block;
+                width: 48px;
+                height: 48px;
+                img, svg {
+                    height: calc(100% - 4px);
+                    width: calc(100% - 4px);
+                    border-radius: 9999px;
+                }
+                svg {
+                    color: lightgrey;
+                    fill: currentcolor;
+                }
+            }
+            .avatar-spacer {
+                flex-grow: 1;
+            }
+        }
+
+        .text-col {
+            font-size: 15px;
+            line-height: 20px;
+            .author {
+                display: flex;
+                flex-direction: row;
+                margin-bottom: 2px;
+                .name {
+                    color: rgb(15, 20, 25);
+                    font-weight: 700;
+                    margin-right: 2px;
+                }
+                .screen-name, .separator, .timestamp {
+                    color: rgb(83, 100, 113);
+                    font-weight: 400;
+                    margin-right: 2px;
+                    a {
+                        color: inherit;
+                        &:hover {
+                            text-decoration: underline;
+                        }
+                    }
+                }
+            }
+
+            .in-reply-to {
+                font-weight: 400;
+                margin-bottom: 2px;
+                a {
+                    color: rgb(83, 100, 113);
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+            }
+        }
+
+    }
+}

@@ -7,22 +7,26 @@ vim: ft=jinja.html:
 
   <article class="tweet-list-item">
 
-    <div class="avatar">
-        {%- if tweet.user.profile_image_url_https %}
-        <img src="{{ tweet.user.profile_image_url_https }}" alt="Profile Image">
-        {%- else %}
-        {% include 'twitter.svg' %}
-        {%- endif %}
+    <div class="avatar-col">
+        <div class="avatar">
+            {%- if tweet.user.profile_image_url_https %}
+            <img src="{{ tweet.user.profile_image_url_https }}" alt="Profile Image">
+            {%- else %}
+            {% include 'twitter.svg' %}
+            {%- endif %}
+        </div>
+        <div class="avatar-spacer"></div>
     </div>
 
-    <div class="text">
+    <div class="text-col">
 
         <div class="author">
-            <div class="names">
-                <div class="name">{{ tweet.user.name or tweet.user.screen_name }}</div>
-                <div class="screen-name">@{{ tweet.user.screen_name }}</div>
+            <div class="name">{{ tweet.user.name or tweet.user.screen_name }}</div>
+            <div class="screen-name">@{{ tweet.user.screen_name }}</div>
+            <div class="separator">·</div>
+            <div class="timestamp">
+                <a href="{{ url_for('get_tweet', tweet_id=tweet.id, ext='html') }}">{{ tweet.created_at }}</a>
             </div>
-            <div class="timestamp"><span>{{ tweet.created_at }} via {{ tweet.source | safe }}</span></div>
         </div>
 
         <div class="in-reply-to">
@@ -42,17 +46,6 @@ vim: ft=jinja.html:
             {%- endfor %}
         </div>
         {%- endif %}
-
-        <!--div class="actions">
-            <div class="action-item">
-                <div class="action-icon">{% include 'link.svg' %}</div>
-                <div class="action-label"><a href="{{ url_for('get_tweet', tweet_id=tweet['id'], ext='txt') }}">Plain Text</a></div>
-            </div>
-            <div class="action-item">
-                <div class="action-icon">{% include 'link.svg' %}</div>
-                <div class="action-label"><a href="{{ url_for('get_tweet', tweet_id=tweet['id'], ext='json') }}">JSON</a></div>
-            </div>
-        </div-->
 
     </div>
 

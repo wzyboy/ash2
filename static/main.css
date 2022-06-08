@@ -505,4 +505,82 @@ a:visited {
   margin: auto;
 }
 
+/* Tweet List */
+.tweet-list {
+  max-width: 650px;
+  margin: 2em auto;
+  border: 1px solid rgb(207, 217, 222);
+  border-radius: 12px;
+  font-family: Roboto, sans-serif;
+}
+.tweet-list .tweet-list-item {
+  display: flex;
+  flex-direction: row;
+  padding: 12px 16px;
+  border-bottom: 1px solid rgb(207, 217, 222);
+}
+.tweet-list .tweet-list-item:nth-last-child(1) {
+  border-bottom: none;
+}
+.tweet-list .tweet-list-item:hover {
+  background-color: rgba(0, 0, 0, 0.03);
+}
+.tweet-list .tweet-list-item .avatar-col {
+  display: flex;
+  flex-direction: column;
+  margin-right: 12px;
+}
+.tweet-list .tweet-list-item .avatar-col .avatar {
+  display: block;
+  width: 48px;
+  height: 48px;
+}
+.tweet-list .tweet-list-item .avatar-col .avatar img, .tweet-list .tweet-list-item .avatar-col .avatar svg {
+  height: calc(100% - 4px);
+  width: calc(100% - 4px);
+  border-radius: 9999px;
+}
+.tweet-list .tweet-list-item .avatar-col .avatar svg {
+  color: lightgrey;
+  fill: currentcolor;
+}
+.tweet-list .tweet-list-item .avatar-col .avatar-spacer {
+  flex-grow: 1;
+}
+.tweet-list .tweet-list-item .text-col {
+  font-size: 15px;
+  line-height: 20px;
+}
+.tweet-list .tweet-list-item .text-col .author {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 2px;
+}
+.tweet-list .tweet-list-item .text-col .author .name {
+  color: rgb(15, 20, 25);
+  font-weight: 700;
+  margin-right: 2px;
+}
+.tweet-list .tweet-list-item .text-col .author .screen-name, .tweet-list .tweet-list-item .text-col .author .separator, .tweet-list .tweet-list-item .text-col .author .timestamp {
+  color: rgb(83, 100, 113);
+  font-weight: 400;
+  margin-right: 2px;
+}
+.tweet-list .tweet-list-item .text-col .author .screen-name a, .tweet-list .tweet-list-item .text-col .author .separator a, .tweet-list .tweet-list-item .text-col .author .timestamp a {
+  color: inherit;
+}
+.tweet-list .tweet-list-item .text-col .author .screen-name a:hover, .tweet-list .tweet-list-item .text-col .author .separator a:hover, .tweet-list .tweet-list-item .text-col .author .timestamp a:hover {
+  text-decoration: underline;
+}
+.tweet-list .tweet-list-item .text-col .in-reply-to {
+  font-weight: 400;
+  margin-bottom: 2px;
+}
+.tweet-list .tweet-list-item .text-col .in-reply-to a {
+  color: rgb(83, 100, 113);
+}
+.tweet-list .tweet-list-item .text-col .in-reply-to a:hover {
+  text-decoration: underline;
+}
+
 /*# sourceMappingURL=main.css.map */
