@@ -29,4 +29,125 @@ ul.api-links {
   font-family: monospace;
 }
 
+/* Tweet card */
+.tweet-card {
+  min-width: 250px;
+  max-width: 550px;
+  margin: 0 auto;
+  padding-top: 12px;
+  padding-bottom: 4px;
+  padding-left: 16px;
+  padding-right: 16px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgb(207, 217, 222);
+  border-radius: 12px;
+  font-family: Roboto, sans-serif;
+}
+.tweet-card .author {
+  padding-bottom: 12px;
+  display: flex;
+  flex-direction: row;
+}
+.tweet-card .author .avatar {
+  display: block;
+  width: 48px;
+  height: 48px;
+}
+.tweet-card .author .names {
+  margin: 0 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  line-height: 20px;
+  font-size: 15px;
+}
+.tweet-card .author .names .name {
+  font-weight: 700;
+  color: rgb(15, 20, 25);
+}
+.tweet-card .author .names .screen-name {
+  font-weight: 400;
+  color: rgb(83, 100, 113);
+}
+.tweet-card .text {
+  display: flex;
+  flex-direction: column;
+}
+.tweet-card .text .in-reply-to {
+  color: rgb(83, 100, 113);
+  margin-top: 4px;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 20px;
+}
+.tweet-card .text .full-text {
+  color: rgb(15, 20, 25);
+  line-height: 24px;
+  font-size: 20px;
+  font-weight: 400;
+}
+.tweet-card .timestamp {
+  height: 32px;
+  margin-top: 2px;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  color: rgb(83, 100, 113);
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 20px;
+}
+.tweet-card .actions {
+  padding-top: 4px;
+  margin-top: 4px;
+  border-top: 1px solid rgb(207, 217, 222);
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+.tweet-card .actions .action-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-right: 20px;
+  height: 32px;
+  color: rgb(83, 100, 113);
+  font-size: 15px;
+  line-height: 20px;
+}
+.tweet-card .actions .action-item .action-icon {
+  color: rgb(83, 100, 113);
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.tweet-card .actions .action-item .action-icon svg {
+  height: 1.25em;
+}
+.tweet-card .view-on-twitter {
+  padding-top: 4px;
+  padding-bottom: 12px;
+  display: flex;
+}
+.tweet-card .view-on-twitter .twitter-link {
+  height: 32px;
+  padding: 0 16px;
+  border: 1px solid rgb(207, 217, 222);
+  border-radius: 9999px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 20px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+.tweet-card .view-on-twitter .twitter-link .link-text {
+  margin: auto;
+}
+
 /*# sourceMappingURL=main.css.map */
