@@ -57,11 +57,16 @@
         flex-direction: column;
 
         .in-reply-to {
-            color: rgb(83, 100, 113);
             margin-top: 4px;
             font-size: 15px;
             font-weight: 400;
             line-height: 20px;
+            a {
+                color: rgb(83, 100, 113);
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
         }
         .full-text {
             color: rgb(15, 20, 25);

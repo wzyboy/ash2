@@ -20,8 +20,13 @@ vim: ft=jinja.html:
     </div>
 
     <div class="text">
-      <div class="in-reply-to"></div>
-      <div class="full-text">Lorem ipsum dolar sit amet lorem ipsum dolar sit amet dolar sit amet. {{ tweet.full_text or tweet.text }}</div>
+        <div class="in-reply-to">
+            {%- if tweet.in_reply_to_status_id %}
+            <a href="{{ tweet | in_reply_to_link }}">Replying to @{{ tweet['in_reply_to_screen_name'] }}</a>
+            {%- endif %}
+        </div>
+
+        <div class="full-text">{{ tweet | format_tweet_text | safe }}</div>
     </div>
 
     <div class="media">
