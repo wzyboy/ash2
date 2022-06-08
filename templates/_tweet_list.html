@@ -37,16 +37,6 @@ vim: ft=jinja.html:
 
         <div class="full-text">{{ tweet | format_tweet_text | safe }}</div>
 
-        {%- if images_src %}
-        <div class="media">
-            {%- for src in images_src %}
-            <div class="media-item">
-                <a href="{{ src }}"><img src="{{ src }}" alt="Image" /></a>
-            </div>
-            {%- endfor %}
-        </div>
-        {%- endif %}
-
     </div>
 
   </article>

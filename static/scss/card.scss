@@ -87,6 +87,7 @@
         margin-top: 12px;
         border: 1px solid rgb(207, 217, 222);
         border-radius: 12px;
+        overflow: hidden;
 
         display: flex;
         flex-direction: column;
@@ -95,6 +96,9 @@
             margin-bottom: 1px;
             img {
                 width: 100%;
+            }
+            &:nth-last-child(1) {
+                margin-bottom: -5px;
             }
         }
     }

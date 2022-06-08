@@ -422,6 +422,7 @@ a:visited {
   margin-top: 12px;
   border: 1px solid rgb(207, 217, 222);
   border-radius: 12px;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
 }
@@ -430,6 +431,9 @@ a:visited {
 }
 .tweet-card .media .media-item img {
   width: 100%;
+}
+.tweet-card .media .media-item:nth-last-child(1) {
+  margin-bottom: -5px;
 }
 .tweet-card .timestamp {
   height: 32px;
@@ -507,7 +511,7 @@ a:visited {
 
 /* Tweet List */
 .tweet-list {
-  max-width: 650px;
+  max-width: 600px;
   margin: 2em auto;
   border: 1px solid rgb(207, 217, 222);
   border-radius: 12px;
@@ -516,7 +520,7 @@ a:visited {
 .tweet-list .tweet-list-item {
   display: flex;
   flex-direction: row;
-  padding: 12px 16px;
+  padding: 15px 15px;
   border-bottom: 1px solid rgb(207, 217, 222);
 }
 .tweet-list .tweet-list-item:nth-last-child(1) {
