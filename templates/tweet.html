@@ -45,7 +45,7 @@ vim: ft=jinja.html:
     </div>
     {%- endif %}
 
-    <div class="timestamp"><span>{{ tweet.created_at }} via {{ tweet.source | safe }}</span></div>
+    <div class="timestamp"><span>{{ tweet.created_at | format_created_at('%Y-%m-%d %H:%M:%S %z') }} via {{ tweet.source | safe }}</span></div>
 
     <div class="actions">
         <div class="action-item">

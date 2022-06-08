@@ -25,7 +25,7 @@ vim: ft=jinja.html:
             <div class="screen-name">@{{ tweet.user.screen_name }}</div>
             <div class="separator">·</div>
             <div class="timestamp">
-                <a href="{{ url_for('get_tweet', tweet_id=tweet.id, ext='html') }}">{{ tweet.created_at }}</a>
+                <a href="{{ url_for('get_tweet', tweet_id=tweet.id, ext='html') }}">{{ tweet.created_at | format_created_at('%Y-%m-%d') }}</a>
             </div>
         </div>
 
