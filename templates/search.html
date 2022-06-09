@@ -18,28 +18,30 @@ Tweets - Search
   <form class="search-form" action="" method="get">
 
       <div class="search-box">
-          <div class="search-icon"></div>
-          <div class="search-input">
-              <input type="text" name="q" value="{{ keyword }}" required/>
-          </div>
+          <div class="search-icon">{% include 'search.svg' %}</div>
+          <input class="search-input" type="text" name="q" placeholder="Search Tweets" value="{{ keyword }}" required/>
       </div>
 
       <div class="search-filters">
           <div class="title">Search filters</div>
-          <div class="filter">
-              <div class="filter-name">User</div>
-              <div class="filter-content">
-                  <select name="u">
-                    <option value="">(all users)</option>
-                    {%- for i in user_list %}
-                    <option value="{{ i }}"{% if i == user %} selected{% endif %}>{{ i }}</option>
-                    {%- endfor %}
-                  </select>
-              </div>
+          <div class="filters">
+                <div class="filter">
+                    <label class="filter-label">User</label>
+                    <div class="filter-content">
+                        <select name="u">
+                            <option value="">[All users]</option>
+                            {%- for i in user_list %}
+                            <option value="{{ i }}"{% if i == user %} selected{% endif %}>{{ i }}</option>
+                            {%- endfor %}
+                        </select>
+                    </div>
+                </div>
           </div>
       </div>
 
-      <input type="submit" value="Search" />
+      <div class="search-button">
+        <input type="submit" value="Search"/>
+      </div>
   </form>
 
   {% include '_tweet_list.html' %}

@@ -5,7 +5,6 @@
     margin: 2em auto;
     border: 1px solid rgb(207, 217, 222);
     border-radius: 12px;
-    font-family: Roboto, sans-serif;
 
     .tweet-list-item {
         display: flex;
@@ -78,6 +77,10 @@
                         text-decoration: underline;
                     }
                 }
+            }
+
+            .full-text {
+                overflow-wrap: break-word;
             }
         }
 

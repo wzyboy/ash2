@@ -337,12 +337,102 @@ template {
   display: none;
 }
 
+body {
+  font-family: Roboto, sans-serif;
+}
+
 a {
   text-decoration: none;
   color: rgb(0, 111, 214);
 }
 a:visited {
   color: rgb(0, 111, 214);
+}
+
+/* Search */
+.search-form {
+  max-width: 330px;
+  margin: 2em auto;
+  display: flex;
+  flex-direction: column;
+}
+.search-form .search-box {
+  display: flex;
+  flex-direction: row;
+  border: 1px solid rgb(207, 217, 222);
+  border-radius: 9999px;
+  overflow: hidden;
+  margin-bottom: 1em;
+}
+.search-form .search-box .search-icon {
+  display: flex;
+  justify-content: center;
+}
+.search-form .search-box .search-icon svg {
+  padding: 10px;
+  height: 1.25em;
+  color: rgb(101, 119, 134);
+  fill: currentcolor;
+  vertical-align: text-bottom;
+}
+.search-form .search-box .search-input {
+  flex-grow: 1;
+  border: none;
+  padding: 10px;
+  outline-style: none;
+}
+.search-form .search-filters {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgb(207, 217, 222);
+  border-radius: 14px;
+}
+.search-form .search-filters .title {
+  border-bottom: inherit;
+  padding: 10px 15px;
+  color: rgb(20, 23, 26);
+  font-size: 19px;
+  font-weight: 900;
+}
+.search-form .search-filters .filters {
+  padding: 10px 15px;
+  display: flex;
+  flex-direction: column;
+}
+.search-form .search-filters .filters .filter {
+  margin: 10px 0;
+}
+.search-form .search-filters .filters .filter .filter-label {
+  font-size: 15px;
+  font-weight: bold;
+  padding: 10px;
+}
+.search-form .search-filters .filters .filter .filter-content {
+  padding: 10px;
+}
+.search-form .search-filters .filters .filter select {
+  outline-style: none;
+  border: inherit;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 15px;
+  padding-right: 25px;
+  line-height: 1.5;
+  width: 100%;
+  border-radius: 9999px;
+}
+.search-form .search-button {
+  padding: 10px;
+}
+.search-form .search-button input {
+  padding: 10px 15px;
+  width: 100%;
+  outline-style: none;
+  border: inherit;
+  line-height: 1.5;
+  cursor: pointer;
+  border-radius: 9999px;
+  font-weight: bold;
 }
 
 /* Tweet card */
@@ -359,7 +449,6 @@ a:visited {
   flex-direction: column;
   border: 1px solid rgb(207, 217, 222);
   border-radius: 12px;
-  font-family: Roboto, sans-serif;
 }
 .tweet-card .author {
   padding-bottom: 12px;
@@ -417,6 +506,7 @@ a:visited {
   line-height: 24px;
   font-size: 20px;
   font-weight: 400;
+  overflow-wrap: break-word;
 }
 .tweet-card .media {
   margin-top: 12px;
@@ -515,7 +605,6 @@ a:visited {
   margin: 2em auto;
   border: 1px solid rgb(207, 217, 222);
   border-radius: 12px;
-  font-family: Roboto, sans-serif;
 }
 .tweet-list .tweet-list-item {
   display: flex;
@@ -585,6 +674,9 @@ a:visited {
 }
 .tweet-list .tweet-list-item .text-col .in-reply-to a:hover {
   text-decoration: underline;
+}
+.tweet-list .tweet-list-item .text-col .full-text {
+  overflow-wrap: break-word;
 }
 
 /*# sourceMappingURL=main.css.map */

@@ -1,5 +1,9 @@
 @import "normalize";
 
+body {
+    font-family: Roboto, sans-serif;
+}
+
 a {
     text-decoration: none;
     color: rgb(0, 111, 214);
@@ -8,5 +12,6 @@ a {
     }
 }
 
+@import "search";
 @import "card";
 @import "list";

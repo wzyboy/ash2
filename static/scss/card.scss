@@ -17,8 +17,6 @@
     border: 1px solid rgb(207, 217, 222);
     border-radius: 12px;
 
-    font-family: Roboto, sans-serif;
-
     .author {
         padding-bottom: 12px;
 
@@ -80,6 +78,7 @@
             line-height: 24px;
             font-size: 20px;
             font-weight: 400;
+            overflow-wrap: break-word;
         }
     }
 
