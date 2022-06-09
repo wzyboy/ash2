@@ -1,0 +1,46 @@
+{#-
+vim: ft=jinja.html:
+-#}
+<div class="tweet-list">
+
+  {%- for tweet in tweets %}
+
+  <article class="tweet-list-item">
+
+    <div class="avatar-col">
+        <div class="avatar">
+            {%- if tweet.user.profile_image_url_https %}
+            <img src="{{ tweet.user.profile_image_url_https }}" alt="Profile Image">
+            {%- else %}
+            {% include 'twitter.svg' %}
+            {%- endif %}
+        </div>
+        <div class="avatar-spacer"></div>
+    </div>
+
+    <div class="text-col">
+
+        <div class="author">
+            <div class="name">{{ tweet.user.name or tweet.user.screen_name }}</div>
+            <div class="screen-name">@{{ tweet.user.screen_name }}</div>
+            <div class="separator">·</div>
+            <div class="timestamp">
+                <a href="{{ url_for('get_tweet', tweet_id=tweet.id, ext='html') }}">{{ tweet.created_at | format_created_at('%Y-%m-%d') }}</a>
+            </div>
+        </div>
+
+        <div class="in-reply-to">
+            {%- if tweet.in_reply_to_status_id %}
+            <a href="{{ tweet | in_reply_to_link }}">Replying to @{{ tweet['in_reply_to_screen_name'] }}</a>
+            {%- endif %}
+        </div>
+
+        <div class="full-text">{{ tweet | format_tweet_text | safe }}</div>
+
+    </div>
+
+  </article>
+
+  {%- endfor %}
+
+</div>

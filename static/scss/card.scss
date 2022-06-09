@@ -1,0 +1,192 @@
+/* Tweet card */
+
+.tweet-card {
+    min-width: 250px;
+    max-width: 550px;
+    margin: 2em auto;
+
+    padding-top: 12px;
+    padding-bottom: 4px;
+    padding-left: 16px;
+    padding-right: 16px;
+    background-color: white;
+
+    display: flex;
+    flex-direction: column;
+
+    border: 1px solid rgb(207, 217, 222);
+    border-radius: 12px;
+
+    .author {
+        padding-bottom: 12px;
+
+        display: flex;
+        flex-direction: row;
+
+        .avatar {
+            display: block;
+            width: 48px;
+            height: 48px;
+            img, svg {
+                height: calc(100% - 4px);
+                width: calc(100% - 4px);
+                border-radius: 9999px;
+            }
+            svg {
+                color: lightgrey;
+                fill: currentcolor;
+            }
+        }
+
+        .names {
+            margin: 0 4px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            line-height: 20px;
+            font-size: 15px;
+            .name {
+                font-weight: 700;
+                color: rgb(15, 20, 25);
+            }
+            .screen-name {
+                font-weight: 400;
+                color: rgb(83, 100, 113)
+            }
+        }
+    }
+
+    .text {
+        display: flex;
+        flex-direction: column;
+
+        .in-reply-to {
+            margin-top: 4px;
+            font-size: 15px;
+            font-weight: 400;
+            line-height: 20px;
+            a {
+                color: rgb(83, 100, 113);
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+        .full-text {
+            color: rgb(15, 20, 25);
+            line-height: 24px;
+            font-size: 20px;
+            font-weight: 400;
+            overflow-wrap: break-word;
+        }
+    }
+
+    .media {
+        margin-top: 12px;
+        border: 1px solid rgb(207, 217, 222);
+        border-radius: 12px;
+        overflow: hidden;
+
+        display: flex;
+        flex-direction: column;
+
+        .media-item {
+            margin-bottom: 1px;
+            img {
+                width: 100%;
+            }
+            &:nth-last-child(1) {
+                margin-bottom: -5px;
+            }
+        }
+    }
+
+    .timestamp {
+        height: 32px;
+
+        margin-top: 2px;
+        align-items: center;
+        display: flex;
+        flex-direction: row;
+        color: rgb(83, 100, 113);
+        font-weight: 400;
+        font-size: 15px;
+        line-height: 20px;
+        a {
+            color: inherit;
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    .actions {
+        padding-top: 4px;
+        margin-top: 4px;
+        border-top: 1px solid rgb(207, 217, 222);
+
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+
+        .action-item {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin-right: 20px;
+            height: 32px;
+
+            color: rgb(83, 100, 113);
+            font-size: 15px;
+            line-height: 20px;
+
+            .action-icon {
+                color: inherit;
+                width: 32px;
+                height: 32px;
+
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                svg {
+                    height: 1.25em;
+                }
+            }
+
+            .action-label {
+                a {
+                    color: inherit;
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+            }
+        }
+    }
+
+    .view-on-twitter {
+        padding-top: 4px;
+        padding-bottom: 12px;
+        display: flex;
+
+        .twitter-link {
+            height: 32px;
+            padding: 0 16px;
+            border: 1px solid rgb(207, 217, 222);
+            border-radius: 9999px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 15px;
+            line-height: 20px;
+            flex-grow: 1;
+
+            display: flex;
+            flex-direction: column;
+
+            .link-text {
+                margin: auto;
+            }
+        }
+    }
+}

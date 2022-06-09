@@ -1,0 +1,97 @@
+/* Search */
+
+.search-form {
+    max-width: 330px;
+    margin: 2em auto;
+    display: flex;
+    flex-direction: column;
+
+    .search-box {
+        display: flex;
+        flex-direction: row;
+
+        border: 1px solid rgb(207, 217, 222);
+        border-radius: 9999px;
+        overflow: hidden;
+
+        margin-bottom: 1em;
+
+        .search-icon {
+            display: flex;
+            justify-content: center;
+            svg {
+                padding: 10px;
+                height: 1.25em;
+                color: rgb(101, 119, 134);
+                fill: currentcolor;
+                vertical-align: text-bottom;
+            }
+        }
+
+        .search-input {
+            flex-grow: 1;
+            border: none;
+            padding: 10px;
+            outline-style: none;
+        }
+    }
+
+    .search-filters {
+        display: flex;
+        flex-direction: column;
+
+        border: 1px solid rgb(207, 217, 222);
+        border-radius: 14px;
+
+        .title {
+            border-bottom: inherit;
+            padding: 10px 15px;
+
+            color: rgb(20, 23, 26);
+            font-size: 19px;
+            font-weight: 900;
+        }
+
+        .filters {
+            padding: 10px 15px;
+            display: flex;
+            flex-direction: column;
+            .filter {
+                margin: 10px 0;
+                .filter-label {
+                    font-size: 15px;
+                    font-weight: bold;
+                    padding: 10px;
+                }
+                .filter-content {
+                    padding: 10px;
+                }
+                select {
+                    outline-style: none;
+                    border: inherit;
+                    padding-top: 10px;
+                    padding-bottom: 10px;
+                    padding-left: 15px;
+                    padding-right: 25px;
+                    line-height: 1.5;
+                    width: 100%;
+                    border-radius: 9999px;
+                }
+            }
+        }
+    }
+
+    .search-button {
+        padding: 10px;
+        input {
+            padding: 10px 15px;
+            width: 100%;
+            outline-style: none;
+            border: inherit;
+            line-height: 1.5;
+            cursor: pointer;
+            border-radius: 9999px;
+            font-weight: bold;
+        }
+    }
+}

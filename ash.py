@@ -6,6 +6,7 @@ import os
 import re
 import pprint
 import itertools
+from datetime import datetime
 from functools import lru_cache
 from urllib.parse import urlparse
 from collections.abc import Mapping
@@ -204,6 +205,15 @@ def format_tweet_text(tweet):
         tweet_text = tweet_text.replace('RT', a, 1)
 
     return tweet_text
+
+
+@app.template_filter('format_created_at')
+def format_created_at(timestamp, fmt):
+    try:
+        dt = datetime.strptime(timestamp, '%a %b %d %H:%M:%S %z %Y')
+    except ValueError:
+        dt = datetime.strptime(timestamp, '%Y-%m-%d %H:%M:%S %z')
+    return dt.strftime(fmt)
 
 
 @app.template_filter('in_reply_to_link')

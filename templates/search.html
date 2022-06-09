@@ -15,33 +15,37 @@ Tweets - Search
 
 {% block body %}
 
-  <section class="search-box">
-    <form action="" method="get">
-      <input type="text" name="q" value="{{ keyword }}" required/>
-      <select name="u">
-        <option value="">(all users)</option>
-        {%- for i in user_list %}
-        <option value="{{ i }}"{% if i == user %} selected{% endif %}>{{ i }}</option>
-        {%- endfor %}
-      </select>
-      <input type="submit" value="Search" />
-    </form>
-  </section>
+  <form class="search-form" action="" method="get">
 
-  <hr />
+      <div class="search-box">
+          <div class="search-icon">{% include 'search.svg' %}</div>
+          <input class="search-input" type="text" name="q" placeholder="Search Tweets" value="{{ keyword }}" required/>
+      </div>
 
-  <section class="tweet">
-  {%- for tweet in tweets %}
-  {% include '_tweet_text.html' %}
-  {%- endfor %}
-  </section>
+      <div class="search-filters">
+          <div class="title">Search filters</div>
+          <div class="filters">
+                <div class="filter">
+                    <label class="filter-label">User</label>
+                    <div class="filter-content">
+                        <select name="u">
+                            <option value="">[All users]</option>
+                            {%- for i in user_list %}
+                            <option value="{{ i }}"{% if i == user %} selected{% endif %}>{{ i }}</option>
+                            {%- endfor %}
+                        </select>
+                    </div>
+                </div>
+          </div>
+      </div>
 
-{% endblock %}
+      <div class="search-button">
+        <input type="submit" value="Search"/>
+      </div>
+  </form>
 
+  {% if tweets %}
+  {% include '_tweet_list.html' %}
+  {% endif %}
 
-{% block footer %}
-    <ul class="api-links">
-      <li><a href="{{ url_for('search_tweet', ext='txt', q=keyword) }}">.txt</a></li>
-      <li><a href="{{ url_for('search_tweet', ext='json', q=keyword) }}">.json</a></li>
-    </ul>
 {% endblock %}

@@ -1,0 +1,18 @@
+@import "normalize";
+
+body {
+    font-family: Roboto, sans-serif;
+}
+
+a {
+    text-decoration: none;
+    color: rgb(0, 111, 214);
+    &:visited {
+        color: rgb(0, 111, 214);
+    }
+}
+
+@import "index";
+@import "search";
+@import "card";
+@import "list";

@@ -9,22 +9,60 @@ vim: ft=jinja.html:
 
 {% block body %}
 
-  <section class="tweet">
-  {% include '_tweet_text.html' %}
-  </section>
+  <article class="tweet-card">
 
-  <section class="media">
-    {%- for src in images_src %}
-    <article><a href="{{ src }}"><img width="300px" src="{{ src }}" alt="tweet image {{ src }}" /></a></article>
-    {%- endfor %}
-  </section>
+    <div class="author">
+      <div class="avatar">
+          {%- if tweet.user.profile_image_url_https %}
+            <img src="{{ tweet.user.profile_image_url_https }}" alt="Profile Image">
+          {%- else %}
+            {% include 'twitter.svg' %}
+          {%- endif %}
+      </div>
+      <div class="names">
+          <div class="name">{{ tweet.user.name or tweet.user.screen_name }}</div>
+          <div class="screen-name">@{{ tweet.user.screen_name }}</div>
+      </div>
+    </div>
 
-{% endblock %}
+    <div class="text">
+        <div class="in-reply-to">
+            {%- if tweet.in_reply_to_status_id %}
+            <a href="{{ tweet | in_reply_to_link }}">Replying to @{{ tweet['in_reply_to_screen_name'] }}</a>
+            {%- endif %}
+        </div>
 
+        <div class="full-text">{{ tweet | format_tweet_text | safe }}</div>
+    </div>
 
-{% block footer %}
-    <ul class="api-links">
-      <li><a href="{{ url_for('get_tweet', tweet_id=tweet['id'], ext='txt') }}">.txt</a></li>
-      <li><a href="{{ url_for('get_tweet', tweet_id=tweet['id'], ext='json') }}">.json</a></li>
-    </ul>
+    {%- if images_src %}
+    <div class="media">
+        {%- for src in images_src %}
+        <div class="media-item">
+            <a href="{{ src }}"><img src="{{ src }}" alt="Image" /></a>
+        </div>
+        {%- endfor %}
+    </div>
+    {%- endif %}
+
+    <div class="timestamp"><span>{{ tweet.created_at | format_created_at('%Y-%m-%d %H:%M:%S %z') }} via {{ tweet.source | safe }}</span></div>
+
+    <div class="actions">
+        <div class="action-item">
+            <div class="action-icon">{% include 'link.svg' %}</div>
+            <div class="action-label"><a href="{{ url_for('get_tweet', tweet_id=tweet['id'], ext='txt') }}">Plain Text</a></div>
+        </div>
+        <div class="action-item">
+            <div class="action-icon">{% include 'link.svg' %}</div>
+            <div class="action-label"><a href="{{ url_for('get_tweet', tweet_id=tweet['id'], ext='json') }}">JSON</a></div>
+        </div>
+    </div>
+
+    <div class="view-on-twitter">
+        <a class="twitter-link" href="{{ get_tweet_link(tweet.user.screen_name, tweet.id, True) }}">
+            <span class="link-text">View on Twitter</span>
+        </a>
+    </div>
+  </article>
+
 {% endblock %}
