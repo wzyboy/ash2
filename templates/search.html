@@ -44,6 +44,8 @@ Tweets - Search
       </div>
   </form>
 
+  {% if tweets %}
   {% include '_tweet_list.html' %}
+  {% endif %}
 
 {% endblock %}

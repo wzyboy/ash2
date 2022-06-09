@@ -349,6 +349,16 @@ a:visited {
   color: rgb(0, 111, 214);
 }
 
+h1.title {
+  text-align: center;
+}
+
+.intro {
+  max-width: 550px;
+  margin: 2em auto;
+  text-align: center;
+}
+
 /* Search */
 .search-form {
   max-width: 330px;
