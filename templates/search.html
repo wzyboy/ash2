@@ -15,29 +15,33 @@ Tweets - Search
 
 {% block body %}
 
-  <section class="search-box">
-    <form action="" method="get">
-      <input type="text" name="q" value="{{ keyword }}" required/>
-      <select name="u">
-        <option value="">(all users)</option>
-        {%- for i in user_list %}
-        <option value="{{ i }}"{% if i == user %} selected{% endif %}>{{ i }}</option>
-        {%- endfor %}
-      </select>
-      <input type="submit" value="Search" />
-    </form>
-  </section>
+  <form class="search-form" action="" method="get">
 
-  <hr />
+      <div class="search-box">
+          <div class="search-icon"></div>
+          <div class="search-input">
+              <input type="text" name="q" value="{{ keyword }}" required/>
+          </div>
+      </div>
+
+      <div class="search-filters">
+          <div class="title">Search filters</div>
+          <div class="filter">
+              <div class="filter-name">User</div>
+              <div class="filter-content">
+                  <select name="u">
+                    <option value="">(all users)</option>
+                    {%- for i in user_list %}
+                    <option value="{{ i }}"{% if i == user %} selected{% endif %}>{{ i }}</option>
+                    {%- endfor %}
+                  </select>
+              </div>
+          </div>
+      </div>
+
+      <input type="submit" value="Search" />
+  </form>
 
   {% include '_tweet_list.html' %}
 
-{% endblock %}
-
-
-{% block footer %}
-    <ul class="api-links">
-      <li><a href="{{ url_for('search_tweet', ext='txt', q=keyword) }}">.txt</a></li>
-      <li><a href="{{ url_for('search_tweet', ext='json', q=keyword) }}">.json</a></li>
-    </ul>
 {% endblock %}
