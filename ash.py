@@ -114,7 +114,7 @@ class TweetsDatabase(Mapping):
         )
         return resp
 
-    def get_user_screen_names(self):
+    def get_users(self):
         resp = self.es.search(
             index=self.es_index,
             size=0,
@@ -126,10 +126,14 @@ class TweetsDatabase(Mapping):
                 }
             },
         )
-        screen_names = [
-            bucket['key'] for bucket in resp['aggregations']['user_screen_names']['buckets']
+        users = [
+            {
+                'screen_name': bucket['key'],
+                'tweets_count': bucket['doc_count']
+            }
+            for bucket in resp['aggregations']['user_screen_names']['buckets']
         ]
-        return screen_names
+        return users
 
 
 def get_tdb():
@@ -353,7 +357,7 @@ def search_tweet(ext):
         return resp
 
     tdb = get_tdb()
-    user_list = tdb.get_user_screen_names()
+    users = tdb.get_users()
 
     user = flask.request.args.get('u', '')
     keyword = flask.request.args.get('q', '')
@@ -382,7 +386,7 @@ def search_tweet(ext):
         'search.html',
         keyword=keyword,
         user=user,
-        user_list=user_list,
+        users=users,
         tweets=tweets
     )
     resp = flask.make_response(rendered)

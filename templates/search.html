@@ -30,8 +30,8 @@ Tweets - Search
                     <div class="filter-content">
                         <select name="u">
                             <option value="">[All users]</option>
-                            {%- for i in user_list %}
-                            <option value="{{ i }}"{% if i == user %} selected{% endif %}>{{ i }}</option>
+                            {%- for u in users %}
+                            <option value="{{ u.screen_name }}"{% if u.screen_name == user %} selected{% endif %}>{{ u.screen_name }} ({{ u.tweets_count }})</option>
                             {%- endfor %}
                         </select>
                     </div>
