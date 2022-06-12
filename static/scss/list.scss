@@ -46,25 +46,33 @@
         .text-col {
             font-size: 15px;
             line-height: 20px;
+            width: 100%;
             .author {
                 display: flex;
                 flex-direction: row;
                 margin-bottom: 2px;
+                a {
+                    color: inherit;
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
                 .name {
                     color: rgb(15, 20, 25);
                     font-weight: 700;
                     margin-right: 2px;
                 }
-                .screen-name, .separator, .timestamp {
+                .screen-name, .separator, .timestamp, .meta {
                     color: rgb(83, 100, 113);
                     font-weight: 400;
                     margin-right: 2px;
-                    a {
-                        color: inherit;
-                        &:hover {
-                            text-decoration: underline;
-                        }
-                    }
+                }
+                .spacer {
+                    flex-grow: 1
+                }
+                .meta {
+                    font-size: 0.8em;
+                    font-family: monospace;
                 }
             }
 

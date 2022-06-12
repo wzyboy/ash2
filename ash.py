@@ -48,8 +48,15 @@ class TweetsDatabase(Mapping):
         self.es_index = es_index
 
     def _search(self, **kwargs):
-        hits = self.es.search(index=self.es_index, **kwargs)['hits']['hits']
-        return [hit['_source'] for hit in hits]
+        if not kwargs.get('index'):
+            kwargs['index'] = self.es_index
+        hits = self.es.search(**kwargs)['hits']['hits']
+        tweets = []
+        for hit in hits:
+            tweet = hit['_source']
+            tweet['@index'] = hit['_index']
+            tweets.append(tweet)
+        return tweets
 
     def __getitem__(self, tweet_id):
         resp = self._search(
@@ -85,7 +92,7 @@ class TweetsDatabase(Mapping):
     def __len__(self):
         return self.es.count(index=self.es_index)['count']
 
-    def search(self, keyword=None, user_screen_name=None, limit=100):
+    def search(self, *, keyword=None, user_screen_name=None, index=None, limit=100):
         keyword_query = {
             'simple_query_string': {
                 'query': keyword,
@@ -106,6 +113,7 @@ class TweetsDatabase(Mapping):
         if user_screen_name:
             compound_query['bool']['filter'] = user_query
         resp = self._search(
+            index=index,
             query=compound_query,
             sort=[{
                 '@timestamp': {'order': 'desc'}
@@ -114,22 +122,50 @@ class TweetsDatabase(Mapping):
         )
         return resp
 
-    def get_user_screen_names(self):
+    def get_users(self):
+        agg_name = 'user_screen_names'
         resp = self.es.search(
             index=self.es_index,
             size=0,
             aggs={
-                'user_screen_names': {
+                agg_name: {
                     'terms': {
                         'field': 'user.screen_name.keyword'
                     }
                 }
             },
         )
-        screen_names = [
-            bucket['key'] for bucket in resp['aggregations']['user_screen_names']['buckets']
+        users = [
+            {
+                'screen_name': bucket['key'],
+                'tweets_count': bucket['doc_count']
+            }
+            for bucket in resp['aggregations'][agg_name]['buckets']
         ]
-        return screen_names
+        return users
+
+    def get_indexes(self):
+        agg_name = 'index_names'
+        resp = self.es.search(
+            index=self.es_index,
+            size=0,
+            aggs={
+                agg_name: {
+                    'terms': {
+                        'field': '_index'
+                    }
+                }
+            },
+        )
+        indexes = [
+            {
+                'name': bucket['key'],
+                'tweets_count': bucket['doc_count']
+            }
+            for bucket in resp['aggregations'][agg_name]['buckets']
+        ]
+        print(indexes)
+        return indexes
 
 
 def get_tdb():
@@ -353,14 +389,17 @@ def search_tweet(ext):
         return resp
 
     tdb = get_tdb()
-    user_list = tdb.get_user_screen_names()
+    users = tdb.get_users()
+    indexes = tdb.get_indexes()
 
     user = flask.request.args.get('u', '')
     keyword = flask.request.args.get('q', '')
+    index = flask.request.args.get('i', '')
     if keyword:
         tweets = tdb.search(
             keyword=keyword,
             user_screen_name=user,
+            index=index,
         )
     else:
         tweets = []
@@ -382,8 +421,10 @@ def search_tweet(ext):
         'search.html',
         keyword=keyword,
         user=user,
-        user_list=user_list,
-        tweets=tweets
+        users=users,
+        index=index,
+        indexes=indexes,
+        tweets=tweets,
     )
     resp = flask.make_response(rendered)
 
