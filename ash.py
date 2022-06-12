@@ -51,7 +51,12 @@ class TweetsDatabase(Mapping):
         if not kwargs.get('index'):
             kwargs['index'] = self.es_index
         hits = self.es.search(**kwargs)['hits']['hits']
-        return [hit['_source'] for hit in hits]
+        tweets = []
+        for hit in hits:
+            tweet = hit['_source']
+            tweet['@index'] = hit['_index']
+            tweets.append(tweet)
+        return tweets
 
     def __getitem__(self, tweet_id):
         resp = self._search(
