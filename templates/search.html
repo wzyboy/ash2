@@ -36,6 +36,17 @@ Tweets - Search
                         </select>
                     </div>
                 </div>
+                <div class="filter">
+                    <label class="filter-label">Index</label>
+                    <div class="filter-content">
+                        <select name="i">
+                            <option value="">*</option>
+                            {%- for i in indexes %}
+                            <option value="{{ i.name }}"{% if i.name == index %} selected{% endif %}>{{ i.name }} ({{ i.tweets_count }})</option>
+                            {%- endfor %}
+                        </select>
+                    </div>
+                </div>
           </div>
       </div>
 
