@@ -1,18 +1,22 @@
 # Twitter Archive Server (V2)
 
-The project is useful if you have a protected Twitter account but you still want to show some of your tweets to the public. 
+Twitter Archive Server, as its name implies, provides a UI to view and search tweets in the archive (database). The project is useful if you have a protected Twitter account. It aims to solve the following issues:
 
-The project is a partial rewrite of [ash](https://github.com/wzyboy/ash).
+1. A user with a protected Twitter account cannot search their own tweets;
+2. A user with a protected Twitter account cannot share their tweets with whom without Twitter accounts;
+3. A user cannot search their own "Liked" / "Favorited" tweets.
+
+The project is a rewrite of [ash](https://github.com/wzyboy/ash).
 
 ## Features:
 
 - Use Elasticsearch as the backend ([simple query syntax](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-simple-query-string-query.html));
 - Multiple archives from different accounts could be merged together;
-- HTML, TXT and JSON output;
-- Full-text search (optional basic auth);
+- HTML, TXT and JSON formats;
+- Full-text search with optional basic auth;
 - Linkify mentions, hashtags, retweets, etc;
 - Restore sanity to t.co-wrapped links and non-links;
-- Load images from Twitter, on-disk mirror, or S3 mirror;
+- Hot-link images from Twitter, on-disk mirror, or S3 mirror;
 - Fetch Tweets from Twitter API if not found in the database.
 
 
@@ -35,7 +39,7 @@ For development / quick start:
 
 ```bash
 $ (venv) pip install -r requirements.txt
-$ (venv) FLASK_APP=ash.py flask run --port 3026
+$ (venv) FLASK_APP=ash flask run --port 3026
 ```
 
 You could now view and search your Twitter Archive at: http://localhost:3026/
