@@ -8,7 +8,7 @@ vim: ft=jinja.html:
 
 {% block head_meta %}
 <meta property="og:title" content="@{{ tweet.user.screen_name }}" />
-<meta property="og:description" content="{{ tweet.full_text or tweet.text }}" />
+<meta property="og:description" content="{{ tweet.content_text or tweet.full_text or tweet.text }}" />
 {% endblock %}
 
 
@@ -63,11 +63,19 @@ vim: ft=jinja.html:
         </div>
     </div>
 
+    {%- if tweet.url %}
+    <div class="view-on-twitter">
+        <a class="twitter-link" href="{{ tweet.url }}">
+            <span class="link-text">View in Fediverse</span>
+        </a>
+    </div>
+    {%- else %}
     <div class="view-on-twitter">
         <a class="twitter-link" href="{{ get_tweet_link(tweet.user.screen_name, tweet.id, True) }}">
             <span class="link-text">View on Twitter</span>
         </a>
     </div>
+    {%- endif %}
   </article>
 
 {% endblock %}

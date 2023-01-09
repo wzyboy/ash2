@@ -41,6 +41,32 @@ if app.config.get('T_EXTERNAL_TWEETS'):
     app.config['T_TWITTER_TOKEN'] = bearer_token
 
 
+def toot_to_tweet(status):
+    '''Transform toot to be compatible with tweet-interface'''
+    # Status is a tweet
+    if status.get('user'):
+        return status
+    # Status is a toot
+    user = {
+        'profile_image_url_https': status['account']['avatar'],
+        'screen_name': status['account']['fqn'],
+        'name': status['account']['display_name'],
+    }
+    media = [
+        {'media_url_https': att['url']}
+        for att in status['media_attachments']
+    ]
+    status['user'] = user
+    status['full_text'] = status['content']
+    status['entities'] = {}
+    status['extended_entities'] = {
+        'media': media
+    }
+    status['in_reply_to_status_id'] = status['in_reply_to_id']
+    status['in_reply_to_screen_name'] = status.get('pleroma', {}).get('in_reply_to_account_acct', '...')
+    return status
+
+
 class TweetsDatabase(Mapping):
 
     def __init__(self, es_host, es_index):
@@ -55,6 +81,7 @@ class TweetsDatabase(Mapping):
         for hit in hits:
             tweet = hit['_source']
             tweet['@index'] = hit['_index']
+            tweet = toot_to_tweet(tweet)
             tweets.append(tweet)
         return tweets
 
@@ -62,7 +89,7 @@ class TweetsDatabase(Mapping):
         resp = self._search(
             query={
                 'term': {
-                    'id': tweet_id
+                    '_id': tweet_id
                 }
             })
         if len(resp) == 0:
@@ -96,13 +123,17 @@ class TweetsDatabase(Mapping):
         keyword_query = {
             'simple_query_string': {
                 'query': keyword,
-                'fields': ['text', 'full_text'],
+                'fields': ['text', 'full_text', 'content_text'],
                 'default_operator': 'AND',
             }
         }
+        if user_screen_name and '@' in user_screen_name:  # Mastodon
+            screen_name_field = 'account.fqn.keyword'
+        else:
+            screen_name_field = 'user.screen_name.keyword'
         user_query = {
             'term': {
-                'user.screen_name.keyword': user_screen_name
+                screen_name_field: user_screen_name
             }
         }
         compound_query = {
@@ -123,24 +154,31 @@ class TweetsDatabase(Mapping):
         return resp
 
     def get_users(self):
-        agg_name = 'user_screen_names'
+        agg_name_twitter = 'user_screen_names'
+        agg_name_mastodon = 'account_fqn'
         resp = self.es.search(
             index=self.es_index,
             size=0,
             aggs={
-                agg_name: {
+                agg_name_twitter: {
                     'terms': {
                         'field': 'user.screen_name.keyword'
+                    }
+                },
+                agg_name_mastodon: {
+                    'terms': {
+                        'field': 'account.fqn.keyword'
                     }
                 }
             },
         )
+        buckets = resp['aggregations'][agg_name_twitter]['buckets'] + resp['aggregations'][agg_name_mastodon]['buckets']
         users = [
             {
                 'screen_name': bucket['key'],
                 'tweets_count': bucket['doc_count']
             }
-            for bucket in resp['aggregations'][agg_name]['buckets']
+            for bucket in buckets
         ]
         return users
 
@@ -164,7 +202,6 @@ class TweetsDatabase(Mapping):
             }
             for bucket in resp['aggregations'][agg_name]['buckets']
         ]
-        print(indexes)
         return indexes
 
 
@@ -240,6 +277,15 @@ def format_tweet_text(tweet):
         a = '<a href="{}">RT</a>'.format(link)
         tweet_text = tweet_text.replace('RT', a, 1)
 
+    # Format reblogged toot
+    reblogged_status = tweet.get('reblog')
+    if reblogged_status:
+        status_link = reblogged_status['url']
+        author = reblogged_status['account']['fqn']
+        author_link = reblogged_status['account']['url']
+        prefix = f'<a href="{status_link}">RT</a> <a href="{author_link}">@{author}</a>: '
+        tweet_text = prefix + tweet_text
+
     return tweet_text
 
 
@@ -248,13 +294,24 @@ def format_created_at(timestamp, fmt):
     try:
         dt = datetime.strptime(timestamp, '%a %b %d %H:%M:%S %z %Y')
     except ValueError:
-        dt = datetime.strptime(timestamp, '%Y-%m-%d %H:%M:%S %z')
+        try:
+            dt = datetime.strptime(timestamp, '%Y-%m-%d %H:%M:%S %z')
+        except ValueError:
+            dt = datetime.strptime(timestamp, '%Y-%m-%dT%H:%M:%S%z')
     return dt.strftime(fmt)
 
 
 @app.template_filter('in_reply_to_link')
 def in_reply_to_link(tweet):
-    return get_tweet_link('status', tweet['in_reply_to_status_id'])
+    if tweet.get('account'):  # Mastodon
+        # If this is a self-thread, return local link
+        if tweet['in_reply_to_account_id'] == tweet['account']['id']:
+            return flask.url_for('get_tweet', tweet_id=tweet['in_reply_to_id'], ext='html')
+        # Else, redir to web interface to see the thread
+        else:
+            return tweet['url']
+    else:  # Twitter
+        return get_tweet_link('status', tweet['in_reply_to_status_id'])
 
 
 @app.template_filter('s3_link')
@@ -308,7 +365,7 @@ def fetch_tweet(tweet_id):
         flask.abort(resp.status_code)
 
 
-@app.route('/tweet/<int:tweet_id>.<ext>')
+@app.route('/tweet/<tweet_id>.<ext>')
 def get_tweet(tweet_id, ext):
 
     if ext not in ('txt', 'json', 'html'):
