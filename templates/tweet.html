@@ -8,7 +8,7 @@ vim: ft=jinja.html:
 
 {% block head_meta %}
 <meta property="og:title" content="@{{ tweet.user.screen_name }}" />
-<meta property="og:description" content="{{ tweet.full_text or tweet.text }}" />
+<meta property="og:description" content="{{ tweet.content_text or tweet.full_text or tweet.text }}" />
 {% endblock %}
 
 
