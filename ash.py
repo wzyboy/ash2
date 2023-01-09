@@ -205,7 +205,6 @@ class TweetsDatabase(Mapping):
             }
             for bucket in resp['aggregations'][agg_name]['buckets']
         ]
-        print(indexes)
         return indexes
 
 
