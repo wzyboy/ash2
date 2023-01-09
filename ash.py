@@ -41,6 +41,23 @@ if app.config.get('T_EXTERNAL_TWEETS'):
     app.config['T_TWITTER_TOKEN'] = bearer_token
 
 
+def toot_to_tweet(status):
+    '''Transform toot to be compatible with tweet-interface'''
+    # Status is a tweet
+    if status.get('user'):
+        return status
+    # Status is a toot
+    user_dict = {
+        'profile_image_url_https': status['account']['avatar'],
+        'screen_name': status['account']['fqn'],
+        'name': status['account']['display_name'],
+    }
+    status['user'] = user_dict
+    status['full_text'] = status['content']
+    status['entities'] = {}
+    return status
+
+
 class TweetsDatabase(Mapping):
 
     def __init__(self, es_host, es_index):
@@ -53,8 +70,9 @@ class TweetsDatabase(Mapping):
         hits = self.es.search(**kwargs)['hits']['hits']
         tweets = []
         for hit in hits:
-            tweet = hit['_source']
-            tweet['@index'] = hit['_index']
+            status = hit['_source']
+            status['@index'] = hit['_index']
+            tweet = toot_to_tweet(status)
             tweets.append(tweet)
         return tweets
 
@@ -62,7 +80,7 @@ class TweetsDatabase(Mapping):
         resp = self._search(
             query={
                 'term': {
-                    'id': tweet_id
+                    '_id': tweet_id
                 }
             })
         if len(resp) == 0:
@@ -248,7 +266,10 @@ def format_created_at(timestamp, fmt):
     try:
         dt = datetime.strptime(timestamp, '%a %b %d %H:%M:%S %z %Y')
     except ValueError:
-        dt = datetime.strptime(timestamp, '%Y-%m-%d %H:%M:%S %z')
+        try:
+            dt = datetime.strptime(timestamp, '%Y-%m-%d %H:%M:%S %z')
+        except ValueError:
+            dt = datetime.strptime(timestamp, '%Y-%m-%dT%H:%M:%S%z')
     return dt.strftime(fmt)
 
 
@@ -308,7 +329,7 @@ def fetch_tweet(tweet_id):
         flask.abort(resp.status_code)
 
 
-@app.route('/tweet/<int:tweet_id>.<ext>')
+@app.route('/tweet/<tweet_id>.<ext>')
 def get_tweet(tweet_id, ext):
 
     if ext not in ('txt', 'json', 'html'):
