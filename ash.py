@@ -79,9 +79,9 @@ class TweetsDatabase(Mapping):
         hits = self.es.search(**kwargs)['hits']['hits']
         tweets = []
         for hit in hits:
-            status = hit['_source']
-            status['@index'] = hit['_index']
-            tweet = toot_to_tweet(status)
+            tweet = hit['_source']
+            tweet['@index'] = hit['_index']
+            tweet = toot_to_tweet(tweet)
             tweets.append(tweet)
         return tweets
 
@@ -128,17 +128,14 @@ class TweetsDatabase(Mapping):
             }
         }
         if user_screen_name and '@' in user_screen_name:  # Mastodon
-            user_query = {
-                'term': {
-                    'account.fqn.keyword': user_screen_name
-                }
+            screen_name_field = 'account.fqn.keyword'
+        else:
+            screen_name_field = 'user.screen_name.keyword'
+        user_query = {
+            'term': {
+                screen_name_field: user_screen_name
             }
-        else:  # Twitter
-            user_query = {
-                'term': {
-                    'user.screen_name.keyword': user_screen_name
-                }
-            }
+        }
         compound_query = {
             'bool': {
                 'must': keyword_query,
