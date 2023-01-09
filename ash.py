@@ -47,14 +47,21 @@ def toot_to_tweet(status):
     if status.get('user'):
         return status
     # Status is a toot
-    user_dict = {
+    user = {
         'profile_image_url_https': status['account']['avatar'],
         'screen_name': status['account']['fqn'],
         'name': status['account']['display_name'],
     }
-    status['user'] = user_dict
+    media = [
+        {'media_url_https': att['url']}
+        for att in status['media_attachments']
+    ]
+    status['user'] = user
     status['full_text'] = status['content']
     status['entities'] = {}
+    status['extended_entities'] = {
+        'media': media
+    }
     return status
 
 
