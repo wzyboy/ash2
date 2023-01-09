@@ -62,6 +62,8 @@ def toot_to_tweet(status):
     status['extended_entities'] = {
         'media': media
     }
+    status['in_reply_to_status_id'] = status['in_reply_to_id']
+    status['in_reply_to_screen_name'] = status.get('pleroma', {}).get('in_reply_to_account_acct', '...')
     return status
 
 
@@ -291,7 +293,15 @@ def format_created_at(timestamp, fmt):
 
 @app.template_filter('in_reply_to_link')
 def in_reply_to_link(tweet):
-    return get_tweet_link('status', tweet['in_reply_to_status_id'])
+    if tweet.get('account'):  # Mastodon
+        # If this is a self-thread, return local link
+        if tweet['in_reply_to_account_id'] == tweet['account']['id']:
+            return flask.url_for('get_tweet', tweet_id=tweet['in_reply_to_id'], ext='html')
+        # Else, redir to web interface to see the thread
+        else:
+            return tweet['url']
+    else:  # Twitter
+        return get_tweet_link('status', tweet['in_reply_to_status_id'])
 
 
 @app.template_filter('s3_link')
