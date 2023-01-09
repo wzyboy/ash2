@@ -258,6 +258,15 @@ def format_tweet_text(tweet):
         a = '<a href="{}">RT</a>'.format(link)
         tweet_text = tweet_text.replace('RT', a, 1)
 
+    # Format reblogged toot
+    reblogged_status = tweet.get('reblog')
+    if reblogged_status:
+        status_link = reblogged_status['url']
+        author = reblogged_status['account']['fqn']
+        author_link = reblogged_status['account']['url']
+        prefix = f'<a href="{status_link}">RT</a> <a href="{author_link}">@{author}</a>: '
+        tweet_text = prefix + tweet_text
+
     return tweet_text
 
 
