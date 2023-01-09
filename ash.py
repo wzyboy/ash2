@@ -127,11 +127,18 @@ class TweetsDatabase(Mapping):
                 'default_operator': 'AND',
             }
         }
-        user_query = {
-            'term': {
-                'user.screen_name.keyword': user_screen_name
+        if user_screen_name and '@' in user_screen_name:  # Mastodon
+            user_query = {
+                'term': {
+                    'account.fqn.keyword': user_screen_name
+                }
             }
-        }
+        else:  # Twitter
+            user_query = {
+                'term': {
+                    'user.screen_name.keyword': user_screen_name
+                }
+            }
         compound_query = {
             'bool': {
                 'must': keyword_query,
@@ -150,24 +157,31 @@ class TweetsDatabase(Mapping):
         return resp
 
     def get_users(self):
-        agg_name = 'user_screen_names'
+        agg_name_twitter = 'user_screen_names'
+        agg_name_mastodon = 'account_fqn'
         resp = self.es.search(
             index=self.es_index,
             size=0,
             aggs={
-                agg_name: {
+                agg_name_twitter: {
                     'terms': {
                         'field': 'user.screen_name.keyword'
+                    }
+                },
+                agg_name_mastodon: {
+                    'terms': {
+                        'field': 'account.fqn.keyword'
                     }
                 }
             },
         )
+        buckets = resp['aggregations'][agg_name_twitter]['buckets'] + resp['aggregations'][agg_name_mastodon]['buckets']
         users = [
             {
                 'screen_name': bucket['key'],
                 'tweets_count': bucket['doc_count']
             }
-            for bucket in resp['aggregations'][agg_name]['buckets']
+            for bucket in buckets
         ]
         return users
 
