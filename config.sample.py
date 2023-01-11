@@ -3,7 +3,7 @@ class Config:
 
     # Elasticsearch
     T_ES_HOST = 'localhost:9200'
-    T_ES_INDEX = 'tweets-*'
+    T_ES_INDEX = 'tweets-*,toots-*'
 
     # Where to load media files
     # Choices: fs, s3, twitter
@@ -27,6 +27,6 @@ class Config:
 
     # Uncomment to enable external Tweets support. If a Tweet is not found in
     # the database, it will be fetched from Twitter API.
-    #T_EXTERNAL_TWEETS = True
+    T_EXTERNAL_TWEETS = False
     #T_TWITTER_KEY = 'consumer key'
     #T_TWITTER_SECRET = 'consumer secret'
