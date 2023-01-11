@@ -36,7 +36,7 @@ if app.config.get('T_EXTERNAL_TWEETS'):
         data='grant_type=client_credentials'
     )
     if not resp.ok:
-        raise RuntimeError('Failed to set up external Tweets support. Error from Twitter: {}'.format(resp.json()))
+        raise RuntimeError(f'Failed to set up external Tweets support. Error from Twitter: {resp.json()}')
     bearer_token = resp.json()['access_token']
     app.config['T_TWITTER_TOKEN'] = bearer_token
 
@@ -93,7 +93,7 @@ class TweetsDatabase(Mapping):
                 }
             })
         if len(resp) == 0:
-            raise KeyError('Tweet ID {} not found'.format(tweet_id))
+            raise KeyError(f'Tweet ID {tweet_id} not found')
         else:
             tweet = resp[0]
         return tweet
@@ -217,7 +217,7 @@ def get_tdb():
 @app.template_global('get_tweet_link')
 def get_tweet_link(screen_name, tweet_id, original_link=False):
     if original_link:
-        return 'https://twitter.com/{}/status/{}'.format(screen_name, tweet_id)
+        return f'https://twitter.com/{screen_name}/status/{tweet_id}'
     else:
         return flask.url_for('get_tweet', tweet_id=tweet_id, ext='html')
 
@@ -244,7 +244,7 @@ def format_tweet_text(tweet):
         # while a real URL would always have a path.
         # https://docs.python.org/3/library/urllib.parse.html#url-parsing
         if urlparse(u['expanded_url']).path:
-            a = '<a href="{expanded_url}">{display_url}</a>'.format_map(u)
+            a = f'<a href="{u["expanded_url"]}">{u["display_url"]}</a>'
         else:
             a = u['display_url']
         tweet_text = tweet_text.replace(u['url'], a)
@@ -252,18 +252,20 @@ def format_tweet_text(tweet):
     # Linkify hashtags
     hashtags = tweet['entities'].get('hashtags', [])
     for h in hashtags:
-        hashtag = '#{}'.format(h['text'])
-        link = 'https://twitter.com/hashtag/{}'.format(h['text'])
-        a = '<a href="{}">{}</a>'.format(link, hashtag)
+        hashtag = f'#{h["text"]}'
+        link = f'https://twitter.com/hashtag/{h["text"]}'
+        a = f'<a href="{link}">{hashtag}</a>'
         tweet_text = tweet_text.replace(hashtag, a)
 
     # Linkify user mentions
     users = tweet['entities'].get('user_mentions', [])
     for user in users:
+        name = user['name']
+        screen_name = user['screen_name']
         # case-insensitive and case-preserving
-        at_user = r'(?i)@({})\b'.format(user['screen_name'])
-        link = 'https://twitter.com/{}'.format(user['screen_name'])
-        a = r'<a href="{}" title="{}">@\1</a>'.format(link, user['name'])
+        at_user = rf'(?i)@({screen_name})\b'
+        link = f'https://twitter.com/{screen_name}'
+        a = rf'<a href="{link}" title="{name}">@\1</a>'
         tweet_text = re.sub(at_user, a, tweet_text)
 
     # Link to retweeted status
@@ -274,7 +276,7 @@ def format_tweet_text(tweet):
     retweeted_status = tweet.get('retweeted_status')
     if retweeted_status:
         link = get_tweet_link('status', retweeted_status['id'])
-        a = '<a href="{}">RT</a>'.format(link)
+        a = f'<a href="{link}">RT</a>'
         tweet_text = tweet_text.replace('RT', a, 1)
 
     # Format reblogged toot
@@ -316,11 +318,9 @@ def in_reply_to_link(tweet):
 
 @app.template_filter('s3_link')
 def get_s3_link(s3_key):
-    return 'https://{}.s3.{}.amazonaws.com/{}'.format(
-        app.config['T_MEDIA_S3_BUCKET'],
-        app.config['T_MEDIA_S3_BUCKET_REGION'],
-        s3_key
-    )
+    bucket = app.config['T_MEDIA_S3_BUCKET']
+    region = app.config['T_MEDIA_S3_BUCKET_REGION']
+    return f'https://{bucket}.s3.{region}.amazonaws.com/{s3_key}'
 
 
 @app.route('/')
@@ -348,10 +348,12 @@ def index():
 @lru_cache(maxsize=1024)
 def fetch_tweet(tweet_id):
 
+    token = app.config['T_TWITTER_TOKEN']
+
     resp = requests.get(
         'https://api.twitter.com/1.1/statuses/show.json',
         headers={
-            'Authorization': 'Bearer {}'.format(app.config['T_TWITTER_TOKEN'])
+            'Authorization': f'Bearer {token}'
         },
         params={
             'id': tweet_id,
