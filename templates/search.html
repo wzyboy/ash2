@@ -19,7 +19,7 @@ Tweets - Search
 
       <div class="search-box">
           <div class="search-icon">{% include 'search.svg' %}</div>
-          <input class="search-input" type="text" name="q" placeholder="Search Tweets" value="{{ keyword }}" required/>
+          <input class="search-input" type="text" name="q" placeholder="Search Tweets" value="{{ keyword or '*' }}" onclick="this.select()" required/>
       </div>
 
       <div class="search-filters">
