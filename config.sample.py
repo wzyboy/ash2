@@ -30,3 +30,6 @@ class Config:
     T_EXTERNAL_TWEETS = False
     #T_TWITTER_KEY = 'consumer key'
     #T_TWITTER_SECRET = 'consumer secret'
+
+    # Default user to show on index
+    #T_DEFAULT_USER = 'jack'

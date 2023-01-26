@@ -333,7 +333,11 @@ def index():
 
     tdb = get_tdb()
     total_tweets = len(tdb)
-    latest_tweets = [tdb[tid] for tid in itertools.islice(reversed(tdb), 10)]
+    default_user = app.config.get('T_DEFAULT_USER')
+    if default_user:
+        latest_tweets = tdb.search(keyword='*', user_screen_name=default_user, limit=10)
+    else:
+        latest_tweets = [tdb[tid] for tid in itertools.islice(reversed(tdb), 10)]
 
     rendered = flask.render_template(
         'index.html',
