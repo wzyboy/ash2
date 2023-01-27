@@ -43,9 +43,10 @@ vim: ft=jinja.html:
     {%- if images %}
     <div class="media">
         {%- for image in images %}
-        <div class="media-item">
+        <figure class="media-item">
             <a href="{{ image.url }}"><img src="{{ image.url }}" alt="{{ image.description or 'Image' }}" title="{{ image.description }}" /></a>
-        </div>
+            <figcaption>{{ image.description }}</figcaption>
+        </figure>
         {%- endfor %}
     </div>
     {%- endif %}
