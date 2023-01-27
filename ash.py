@@ -53,7 +53,10 @@ def toot_to_tweet(status):
         'name': status['account']['display_name'],
     }
     media = [
-        {'media_url_https': att['url']}
+        {
+            'media_url_https': att['url'],
+            'description': att['description']
+        }
         for att in status['media_attachments']
     ]
     status['user'] = user
@@ -402,8 +405,8 @@ def get_tweet(tweet_id, ext):
 
     # HTML output
 
-    # Generate img src
-    images_src = []
+    # Extract list images
+    images = []
     try:
         # https://developer.twitter.com/en/docs/tweets/data-dictionary/overview/extended-entities-object
         entities = tweet['extended_entities']
@@ -421,13 +424,16 @@ def get_tweet(tweet_id, ext):
             img_src = get_s3_link(media_key)
         else:
             img_src = ''
-        images_src.append(img_src)
+        images.append({
+            'url': img_src,
+            'description': m.get('description', '')
+        })
 
     # Render HTML
     rendered = flask.render_template(
         'tweet.html',
         tweet=tweet,
-        images_src=images_src
+        images=images
     )
     resp = flask.make_response(rendered)
 
