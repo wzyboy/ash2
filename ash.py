@@ -123,7 +123,7 @@ class TweetsDatabase(Mapping):
         keyword_query = {
             'simple_query_string': {
                 'query': keyword,
-                'fields': ['text', 'full_text', 'content_text'],
+                'fields': ['text', 'full_text', 'content_text', 'media_attachments.description'],
                 'default_operator': 'AND',
             }
         }
