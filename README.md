@@ -6,7 +6,7 @@ Twitter Archive Server, as its name implies, provides a UI to view and search tw
 2. A user with a protected Twitter account cannot share their tweets with whom without Twitter accounts;
 3. A user cannot search their own "Liked" / "Favorited" tweets.
 
-The project is a rewrite of [ash](https://github.com/wzyboy/ash).
+Additionally, if your Twitter account no longer exists, you can use this server to serve your tweets from your archive.
 
 ## Features:
 
@@ -16,8 +16,8 @@ The project is a rewrite of [ash](https://github.com/wzyboy/ash).
 - Full-text search with optional basic auth;
 - Linkify mentions, hashtags, retweets, etc;
 - Restore sanity to t.co-wrapped links and non-links;
-- Hot-link images from Twitter, on-disk mirror, or S3 mirror;
-- Fetch Tweets from Twitter API if not found in the database.
+- Hotlink images from Twitter (`pbs.twimg.com` or a mirror URL of your choice) or filesystem directory;
+- Fetch Tweets from Twitter API if not found in the database (requires Twitter API key).
 
 
 ## Setup
@@ -25,6 +25,12 @@ The project is a rewrite of [ash](https://github.com/wzyboy/ash).
 1. Use [tbeat](https://github.com/wzyboy/tbeat) to load your tweets into Elasticsearch;
 2. Copy `config.sample.py` to `config.py` and edit it to meet your needs.
 
+
+## Media
+
+If your Twitter account is still alive, all your media files can still be accessed from `pbs.twimg.com` domain. In case your Twitter account no longer exists, you need an alternate way to serve the media files.
+
+Check out `./contrib/extract_media/main.py` for a helper script to extract media files from Twitter archive and/or `pbs.twimg.com`. You can then upload the local directory to an object storage service and serve it with a CDN by setting `T_MEDIA_BASEURL` parameter in `config.py`. This archive server can also be configured to serve the files directly.
 
 ## Running
 
