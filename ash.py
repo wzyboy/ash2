@@ -321,8 +321,10 @@ def in_reply_to_link(tweet):
 
 def get_media_url(url):
     path = urlparse(url).path
-    baseurl = app.config['T_MEDIA_BASEURL']
-    return f'{baseurl}{path}'
+    if baseurl := app.config['T_MEDIA_BASEURL']:
+        return f'{baseurl}{path}'
+    else:
+        return url
 
 
 @app.route('/')
@@ -415,7 +417,7 @@ def get_tweet(tweet_id, ext):
     for m in media:
         media_url = m['media_url_https']
         media_key = os.path.basename(media_url)
-        if _is_external_tweet or app.config['T_MEDIA_FROM'] == 'twitter':
+        if _is_external_tweet:
             img_src = media_url
         elif app.config['T_MEDIA_FROM'] == 'filesystem':
             img_src = flask.url_for('get_media', filename=media_key)
