@@ -28,7 +28,7 @@ class TwimgExtractor(scrapy.Spider):
         super().__init__(**kwargs)
 
     def start_requests(self):
-        media_cache = TweetMediaCache(self.tweets_media)
+        media_cache = TweetsMediaCache(self.tweets_media)
         for url in self.find_urls(self.tweets_js):
             if cached := media_cache.get(url):
                 output = self.url_to_fs_path(url, self.output_dir)
@@ -63,11 +63,10 @@ class TwimgExtractor(scrapy.Spider):
         return parent / url.removeprefix('https://')
 
 
-class TweetMediaCache:
-    def __init__(self, tweet_media: Path) -> None:
-        assert tweet_media.is_dir()
+class TweetsMediaCache:
+    def __init__(self, tweets_media: Path) -> None:
         self._dict = dict()
-        for file in tweet_media.glob('*'):
+        for file in tweets_media.glob('*'):
             key = file.stem.split('-')[1]
             self._dict[key] = file
 
@@ -79,7 +78,7 @@ class TweetMediaCache:
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('archive_dir', type=Path, help='directory of extracted Twitter archive')
-    ap.add_argument('--output_dir', type=Path, help='directory to save media files into', default=Path('output_dir'))
+    ap.add_argument('-o', '--output_dir', type=Path, help='directory to save media files into', default=Path('output_dir'))
     args = ap.parse_args()
 
     process = CrawlerProcess()
