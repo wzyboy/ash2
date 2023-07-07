@@ -22,18 +22,18 @@ class TwimgExtractor(scrapy.Spider):
     name = 'TwimgExtractor'
 
     def __init__(self, archive_dir: Path, output_dir: Path, **kwargs):
-        self.tweet_js = archive_dir / 'data/tweet.js'
-        self.tweet_media = archive_dir / 'data/tweet_media'
+        self.tweets_js = archive_dir / 'data/tweets.js'
+        self.tweets_media = archive_dir / 'data/tweets_media'
         self.output_dir = output_dir
         super().__init__(**kwargs)
 
     def start_requests(self):
-        media_cache = TweetMediaCache(self.tweet_media)
-        for url in self.find_urls(self.tweet_js):
+        media_cache = TweetMediaCache(self.tweets_media)
+        for url in self.find_urls(self.tweets_js):
             if cached := media_cache.get(url):
                 output = self.url_to_fs_path(url, self.output_dir)
                 output.parent.mkdir(parents=True, exist_ok=True)
-                shutil.copy(cached, output)
+                shutil.copy2(cached, output)
                 self.logger.debug(f'Copied from local: {cached}')
             else:
                 yield scrapy.Request(url=url, callback=self.parse)
