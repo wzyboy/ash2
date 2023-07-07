@@ -6,20 +6,15 @@ class Config:
     T_ES_INDEX = 'tweets-*,toots-*'
 
     # Where to load media files
-    # Choices: fs, s3, twitter
+    # hotlink: Media files will be hotlinked from T_MEDIA_BASEURL
+    # filesystem: Media files would be served from T_MEDIA_FS_PATH
+    T_MEDIA_FROM = 'hotlink'
 
-    # fs: Media files would be served from local filesystem. Use
-    # ./scripts/extract_media_urls.py to extract media files from your Twitter
-    # Archive.
-    # s3: You could upload the media files to an S3 bucket to serve them from.
-    # twitter: The media files will be hot-linked from Twitter.
-    T_MEDIA_FROM = 'twitter'
+    # You can also use an alternative domain in case your Twitter account no longer exists
+    # T_MEDIA_BASEURL = 'https://d1111111111.cloudfront.net/pbs.twimg.com'
+    T_MEDIA_BASEURL = 'https://pbs.twimg.com'
 
-    # S3 bucket name and region if loading images from S3
-    T_MEDIA_S3_BUCKET = 'your-bucket-name'
-    T_MEDIA_S3_BUCKET_REGION = 'us-west-2'
-
-    # Directory path if loading images from FS
+    # Directory path if loading images from filesystem
     T_MEDIA_FS_PATH = './media'
 
     # Uncomment to enable basic auth on search page

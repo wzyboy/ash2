@@ -319,11 +319,10 @@ def in_reply_to_link(tweet):
         return get_tweet_link('status', tweet['in_reply_to_status_id'])
 
 
-@app.template_filter('s3_link')
-def get_s3_link(s3_key):
-    bucket = app.config['T_MEDIA_S3_BUCKET']
-    region = app.config['T_MEDIA_S3_BUCKET_REGION']
-    return f'https://{bucket}.s3.{region}.amazonaws.com/{s3_key}'
+def get_media_url(url):
+    path = urlparse(url).path
+    baseurl = app.config['T_MEDIA_BASEURL']
+    return f'{baseurl}{path}'
 
 
 @app.route('/')
@@ -418,10 +417,10 @@ def get_tweet(tweet_id, ext):
         media_key = os.path.basename(media_url)
         if _is_external_tweet or app.config['T_MEDIA_FROM'] == 'twitter':
             img_src = media_url
-        elif app.config['T_MEDIA_FROM'] == 'fs':
+        elif app.config['T_MEDIA_FROM'] == 'filesystem':
             img_src = flask.url_for('get_media', filename=media_key)
-        elif app.config['T_MEDIA_FROM'] == 's3':
-            img_src = get_s3_link(media_key)
+        elif app.config['T_MEDIA_FROM'] == 'hotlink':
+            img_src = get_media_url(media_url)
         else:
             img_src = ''
         images.append({
