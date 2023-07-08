@@ -70,6 +70,8 @@ class TwimgExtractor(scrapy.Spider):
 
     @staticmethod
     def url_to_fs_path(url: str, parent: Path) -> Path:
+        # remove query strings
+        url = url.split('?')[0]
         return parent / url.removeprefix('https://')
 
 
