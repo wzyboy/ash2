@@ -28,9 +28,9 @@ Additionally, if your Twitter account no longer exists, you can use this server 
 
 ## Media
 
-If your Twitter account is still alive, all your media files can still be accessed from `pbs.twimg.com` domain. In case your Twitter account no longer exists, you need an alternate way to serve the media files.
+If your Twitter account is still alive, all your media files can still be accessed from `(pbs|video).twimg.com` domain. In case your Twitter account no longer exists, you need an alternate way to serve the media files.
 
-Check out `./contrib/extract_media/main.py` for a helper script to extract media files from Twitter archive and/or `pbs.twimg.com`. You can then upload the local directory to an object storage service and serve it with a CDN by setting `T_MEDIA_BASEURL` parameter in `config.py`. This archive server can also be configured to serve the files directly.
+Check out `./contrib/extract_media/main.py` for a helper script to extract media files from Twitter archive and/or `(pbs|video).twimg.com`. You can then upload the local directory to an object storage service and serve it with a CDN by setting `T_MEDIA_MIRRORS` parameter in `config.py`. This archive server can also be configured to serve the files directly.
 
 ## Running
 

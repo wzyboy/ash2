@@ -320,9 +320,10 @@ def in_reply_to_link(tweet):
 
 
 def get_media_url(url):
-    path = urlparse(url).path
-    if baseurl := app.config['T_MEDIA_BASEURL']:
-        return f'{baseurl}{path}'
+    mirrors = app.config.get('T_MEDIA_MIRRORS', {})
+    for orig, repl in mirrors.items():
+        if orig in url:
+            return url.replace(orig, repl)
     else:
         return url
 
@@ -417,11 +418,11 @@ def get_tweet(tweet_id, ext):
     for m in media:
         media_url = m['media_url_https']
         media_key = os.path.basename(media_url)
-        if _is_external_tweet:
+        if _is_external_tweet or app.config['T_MEDIA_FROM'] == 'direct':
             img_src = media_url
         elif app.config['T_MEDIA_FROM'] == 'filesystem':
             img_src = flask.url_for('get_media', filename=media_key)
-        elif app.config['T_MEDIA_FROM'] == 'hotlink':
+        elif app.config['T_MEDIA_FROM'] == 'mirror':
             img_src = get_media_url(media_url)
         else:
             img_src = ''

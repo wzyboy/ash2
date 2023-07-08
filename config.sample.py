@@ -6,13 +6,17 @@ class Config:
     T_ES_INDEX = 'tweets-*,toots-*'
 
     # Where to load media files
-    # hotlink: Media files will be hotlinked from T_MEDIA_BASEURL
-    # filesystem: Media files would be served from T_MEDIA_FS_PATH
-    T_MEDIA_FROM = 'hotlink'
+    # direct: Media files are hotlinked from Twitter CDN
+    # filesystem: Media files are served from T_MEDIA_FS_PATH
+    # mirror: Media files are served from T_MEDIA_MIRRORS
+    T_MEDIA_FROM = 'direct'
 
-    # You can also use an alternative domain in case your Twitter account no longer exists
-    # T_MEDIA_BASEURL = 'https://d1111111111.cloudfront.net/pbs.twimg.com'
-    T_MEDIA_BASEURL = 'https://pbs.twimg.com'
+    # You can also use mirror domains in case your Twitter account no longer exists
+    # This is just simple string substitution
+    T_MEDIA_MIRRORS = {
+        'pbs.twimg.com': 'd1111111111.cloudfront.net/pbs.twimg.com',
+        'video.twimg.com': 'd1111111111.cloudfront.net/video.twimg.com',
+    }
 
     # Directory path if loading images from filesystem
     T_MEDIA_FS_PATH = './media'
