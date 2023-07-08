@@ -1,3 +1,3 @@
-Flask==2.1.2
-elasticsearch==8.2.0
-requests==2.27.1
+Flask==2.3.2
+elasticsearch==8.8.0
+requests==2.31.0
