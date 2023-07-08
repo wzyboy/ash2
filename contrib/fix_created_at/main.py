@@ -17,14 +17,29 @@ replace the incorrect "created_at" attributes with correct ones.
 import os
 import re
 import glob
+import json
 import argparse
+import itertools
 from datetime import datetime
 
-from loader import load_files
+
+def load_file(filename):
+    with open(filename, 'r') as f:
+        # drop the first line
+        lines = f.readlines()
+        content = ''.join(lines[1:])
+        data = json.loads(content)
+    return data
+
+
+def load_files(filenames):
+    data = itertools.chain.from_iterable(
+        load_file(filename) for filename in filenames
+    )
+    return data
 
 
 def main():
-
     # Mon Jun 29 15:46:31 +0000 2009
     # 2017-08-17 12:57:51 +0000
     old_ts_format = '%a %b %d %H:%M:%S %z %Y'
