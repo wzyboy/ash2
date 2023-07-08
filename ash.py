@@ -319,13 +319,19 @@ def in_reply_to_link(tweet):
         return get_tweet_link('status', tweet['in_reply_to_status_id'])
 
 
-def get_media_url(url):
-    mirrors = app.config.get('T_MEDIA_MIRRORS', {})
-    for orig, repl in mirrors.items():
-        if orig in url:
-            return url.replace(orig, repl)
-    else:
+def replace_media_url(url):
+    media_key = os.path.basename(url)
+    if app.config['T_MEDIA_FROM'] == 'direct':
         return url
+    elif app.config['T_MEDIA_FROM'] == 'filesystem':
+        return flask.url_for('get_media', filename=media_key)
+    elif app.config['T_MEDIA_FROM'] == 'mirror':
+        mirrors = app.config.get('T_MEDIA_MIRRORS', {})
+        for orig, repl in mirrors.items():
+            if orig in url:
+                return url.replace(orig, repl)
+        else:
+            return url
 
 
 @app.route('/')
@@ -409,6 +415,7 @@ def get_tweet(tweet_id, ext):
 
     # Extract list images
     images = []
+    videos = []
     try:
         # https://developer.twitter.com/en/docs/tweets/data-dictionary/overview/extended-entities-object
         entities = tweet['extended_entities']
@@ -416,26 +423,35 @@ def get_tweet(tweet_id, ext):
         entities = tweet['entities']
     media = entities.get('media', [])
     for m in media:
-        media_url = m['media_url_https']
-        media_key = os.path.basename(media_url)
-        if _is_external_tweet or app.config['T_MEDIA_FROM'] == 'direct':
-            img_src = media_url
-        elif app.config['T_MEDIA_FROM'] == 'filesystem':
-            img_src = flask.url_for('get_media', filename=media_key)
-        elif app.config['T_MEDIA_FROM'] == 'mirror':
-            img_src = get_media_url(media_url)
+        # type = video
+        if m.get('type') == 'video':
+            variants = m['video_info']['variants']
+            hq_variant = max(variants, key=lambda v: v.get('bitrate', -1))
+            media_url = hq_variant['url']
+            if not _is_external_tweet:
+                media_url = replace_media_url(media_url)
+            videos.append({
+                'url': media_url,
+            })
+        # type = photo
+        elif m.get('type') == 'photo':
+            media_url = m['media_url_https']
+            if not _is_external_tweet:
+                media_url = replace_media_url(media_url)
+            images.append({
+                'url': media_url,
+                'description': m.get('description', '')
+            })
+        # type = unknown
         else:
-            img_src = ''
-        images.append({
-            'url': img_src,
-            'description': m.get('description', '')
-        })
+            pass
 
     # Render HTML
     rendered = flask.render_template(
         'tweet.html',
         tweet=tweet,
-        images=images
+        images=images,
+        videos=videos,
     )
     resp = flask.make_response(rendered)
 

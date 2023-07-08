@@ -40,13 +40,16 @@ vim: ft=jinja.html:
         <div class="full-text">{{ tweet | format_tweet_text | safe }}</div>
     </div>
 
-    {%- if images %}
+    {%- if images or videos %}
     <div class="media">
         {%- for image in images %}
         <figure class="media-item">
             <a href="{{ image.url }}"><img src="{{ image.url }}" alt="{{ image.description or 'Image' }}" title="{{ image.description }}" /></a>
             <figcaption>{{ image.description }}</figcaption>
         </figure>
+        {%- endfor %}
+        {%- for video in videos %}
+        <video controls src="{{ video.url }}"></video>
         {%- endfor %}
     </div>
     {%- endif %}
