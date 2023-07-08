@@ -27,19 +27,28 @@ class TwimgExtractor(scrapy.Spider):
         self.output_dir = output_dir
         super().__init__(**kwargs)
 
-    def start_requests(self):
+    def start_requests(self) -> Iterator[scrapy.Request]:
         media_cache = TweetsMediaCache(self.tweets_media)
         for url in self.find_urls(self.tweets_js):
             if cached := media_cache.get(url):
                 output = self.url_to_fs_path(url, self.output_dir)
                 output.parent.mkdir(parents=True, exist_ok=True)
-                shutil.copy2(cached, output)
-                self.logger.debug(f'Copied from local: {cached}')
+                if output.exists():
+                    self.logger.debug(f'Skipped copying as target exists:: {output}')
+                else:
+                    shutil.copy2(cached, output)
+                    self.logger.debug(f'Copied from local: {cached}')
             else:
-                yield scrapy.Request(url=url, callback=self.parse)
+                yield from self.download_url(url)
 
-    def parse(self, response):
-        output: Path = self.url_to_fs_path(response.url, self.output_dir)
+    def download_url(self, url: str) -> Iterator[scrapy.Request]:
+        output: Path = self.url_to_fs_path(url, self.output_dir)
+        if output.exists() and output.stat().st_size > 0:
+            self.logger.debug(f'Skipped downloading as target exists: {output}')
+        else:
+            yield scrapy.Request(url=url, callback=self.write_to_disk, cb_kwargs={'output': output})
+
+    def write_to_disk(self, response, output: Path):
         output.parent.mkdir(parents=True, exist_ok=True)
         output.write_bytes(response.body)
 
