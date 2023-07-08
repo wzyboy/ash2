@@ -52,7 +52,8 @@ class TwimgExtractor(scrapy.Spider):
         output.parent.mkdir(parents=True, exist_ok=True)
         output.write_bytes(response.body)
 
-    def find_urls(self, tweet_js: Path) -> Iterator[str]:
+    @staticmethod
+    def find_urls(tweet_js: Path) -> Iterator[str]:
         twimg_url_re = re.compile(r'(?<=")https://(pbs|video).twimg.com/.*?(?=")')
         seen = set()
         with open(tweet_js, 'r') as f:
@@ -76,7 +77,7 @@ class TweetsMediaCache:
     def __init__(self, tweets_media: Path) -> None:
         self._dict = dict()
         for file in tweets_media.glob('*'):
-            key = file.stem.split('-')[1]
+            key = file.stem.split('-', 1)[1]
             self._dict[key] = file
 
     def get(self, url: str) -> Optional[Path]:
