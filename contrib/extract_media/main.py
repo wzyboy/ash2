@@ -77,11 +77,11 @@ class TweetsMediaCache:
     def __init__(self, tweets_media: Path) -> None:
         self._dict = dict()
         for file in tweets_media.glob('*'):
-            key = file.stem.split('-', 1)[1]
+            key = file.name.split('-', 1)[1]
             self._dict[key] = file
 
     def get(self, url: str) -> Optional[Path]:
-        key = Path(urlparse(url).path).stem
+        key = Path(urlparse(url).path).name
         return self._dict.get(key)
 
 
