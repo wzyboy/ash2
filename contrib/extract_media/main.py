@@ -44,7 +44,7 @@ class TwimgExtractor(scrapy.Spider):
         output.write_bytes(response.body)
 
     def find_urls(self, tweet_js: Path) -> Iterator[str]:
-        twimg_url_re = re.compile(r'(?<=")https://pbs.twimg.com/.*?(?=")')
+        twimg_url_re = re.compile(r'(?<=")https://(pbs|video).twimg.com/.*?(?=")')
         seen = set()
         with open(tweet_js, 'r') as f:
             for line in f:
