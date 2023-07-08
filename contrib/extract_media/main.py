@@ -9,7 +9,7 @@ import re
 import shutil
 import argparse
 from pathlib import Path
-from urllib.parse import urlparse
+from urllib.parse import urlsplit
 
 from typing import Optional
 from collections.abc import Iterator
@@ -65,14 +65,9 @@ class TwimgExtractor(scrapy.Spider):
                         seen.add(url)
 
     @staticmethod
-    def url_to_s3_key(url: str) -> str:
-        return url.removeprefix('https://')
-
-    @staticmethod
     def url_to_fs_path(url: str, parent: Path) -> Path:
-        # remove query strings
-        url = url.split('?')[0]
-        return parent / url.removeprefix('https://')
+        parts = urlsplit(url)
+        return parent / f'{parts.netloc}{parts.path}'
 
 
 class TweetsMediaCache:
@@ -83,7 +78,7 @@ class TweetsMediaCache:
             self._dict[key] = file
 
     def get(self, url: str) -> Optional[Path]:
-        key = Path(urlparse(url).path).name
+        key = Path(urlsplit(url).path).name
         return self._dict.get(key)
 
 
