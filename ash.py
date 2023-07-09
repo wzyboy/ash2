@@ -479,11 +479,11 @@ def search_tweet(ext: str):
     user = flask.request.args.get('u', '')
     index = flask.request.args.get('i', '')
     if keyword := flask.request.args.get('q', ''):
-        tweets = tdb.search(
+        tweets = list(tdb.search(
             keyword=keyword,
             user_screen_name=user,
             index=index,
-        )
+        ))
     else:
         tweets = []
 

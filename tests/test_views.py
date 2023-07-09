@@ -22,3 +22,15 @@ class TestMediaReplacement:
         client.application.config['T_MEDIA_FS_PATH'] = './media'
         resp = client.get(f'/tweet/{self.tweet_id}.html')
         assert f'/tweet/media/pbs.twimg.com/media/{self.media_filename}' in resp.text
+
+
+class TestSearchView:
+    keywords = ('please connect a keyboard', 'This guy found a starving dog')
+
+    def test_search(self, client):
+        resp = client.get(
+            '/tweet/search.html',
+            query_string={'q': '*'}
+        )
+        for kw in self.keywords:
+            assert kw in resp.text
