@@ -4,6 +4,7 @@ A Flask-based web server that serves Twitter Archive.
 
 from __future__ import annotations
 
+import os
 import re
 import pprint
 import itertools
@@ -27,10 +28,11 @@ class DefaultConfig:
 
 app = flask.Flask(__name__, static_url_path='/tweet/static')
 app.config.from_object(DefaultConfig)
-try:
-    app.config.from_object('config.Config')
-except ImportError:
-    pass
+if not os.environ.get('TESTING'):
+    try:
+        app.config.from_object('config.Config')
+    except ImportError:
+        pass
 
 
 # Set up external Tweets support

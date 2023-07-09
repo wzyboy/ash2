@@ -7,11 +7,11 @@ from datetime import datetime
 import pytest
 from elasticsearch import Elasticsearch
 
-from ash import app
-
 
 @pytest.fixture
 def client(es_host, es_index):
+    os.environ['TESTING'] = 'True'
+    from ash import app
     app.config.update({
         'TESTING': True,
         'T_ES_HOST': es_host,
