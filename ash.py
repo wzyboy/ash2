@@ -2,7 +2,6 @@
 A Flask-based web server that serves Twitter Archive.
 '''
 
-import os
 import re
 import pprint
 import itertools
@@ -16,11 +15,22 @@ import requests
 from elasticsearch import Elasticsearch
 
 
+class DefaultConfig:
+    T_ES_HOST = 'http://localhost:9200'
+    T_ES_INDEX = 'tweets-*,toots-*'
+    T_MEDIA_FROM = 'direct'
+    T_EXTERNAL_TWEETS = False
+
+
 app = flask.Flask(
     __name__,
     static_url_path='/tweet/static'
 )
-app.config.from_object('config.Config')
+app.config.from_object(DefaultConfig)
+try:
+    app.config.from_object('config.Config')
+except ImportError:
+    pass
 
 
 # Set up external Tweets support
