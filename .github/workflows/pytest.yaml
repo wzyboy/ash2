@@ -19,6 +19,14 @@ jobs:
           python-version: ${{ matrix.python-version }}
           cache: pip
 
+      - name: Setup Elasticsearch
+        run: |
+          pushd tests/elasticsearch
+          docker compose up -d
+          # wait until up
+          docker inspect --format '{{ .NetworkSettings.IPAddress }}:9200' es01 | xargs wget --retry-connrefused --tries=5 -q --wait=3 --spider
+          popd
+
       - name: Run pytest
         run: |
           pip install -r requirements-dev.txt
