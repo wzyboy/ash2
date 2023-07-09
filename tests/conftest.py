@@ -10,15 +10,10 @@ from elasticsearch import Elasticsearch
 from ash import app
 
 
-class Config:
-    TESTING = True
-    T_MEDIA_FROM = 'direct'
-
-
 @pytest.fixture
 def client(es_host, es_index):
-    app.config.from_object(Config)
     app.config.update({
+        'TESTING': True,
         'T_ES_HOST': es_host,
         'T_ES_INDEX': es_index,
     })
