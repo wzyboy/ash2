@@ -8,7 +8,7 @@ import pprint
 import itertools
 from datetime import datetime
 from functools import lru_cache
-from urllib.parse import urlparse
+from urllib.parse import urlsplit
 from collections.abc import Mapping
 
 import flask
@@ -246,7 +246,7 @@ def format_tweet_text(tweet):
         # A bare domain would be prepended a scheme but not a path,
         # while a real URL would always have a path.
         # https://docs.python.org/3/library/urllib.parse.html#url-parsing
-        if urlparse(u['expanded_url']).path:
+        if urlsplit(u['expanded_url']).path:
             a = f'<a href="{u["expanded_url"]}">{u["display_url"]}</a>'
         else:
             a = u['display_url']
@@ -320,11 +320,12 @@ def in_reply_to_link(tweet):
 
 
 def replace_media_url(url):
-    media_key = os.path.basename(url)
     if app.config['T_MEDIA_FROM'] == 'direct':
         return url
     elif app.config['T_MEDIA_FROM'] == 'filesystem':
-        return flask.url_for('get_media', filename=media_key)
+        parts = urlsplit(url)
+        fs_path = f'{parts.netloc}{parts.path}'
+        return flask.url_for('get_media_from_filesystem', fs_path=fs_path)
     elif app.config['T_MEDIA_FROM'] == 'mirror':
         mirrors = app.config.get('T_MEDIA_MIRRORS', {})
         for orig, repl in mirrors.items():
@@ -458,9 +459,9 @@ def get_tweet(tweet_id, ext):
     return resp
 
 
-@app.route('/tweet/media/<path:filename>')
-def get_media(filename):
-    return flask.send_from_directory(app.config['T_MEDIA_FS_PATH'], filename)
+@app.route('/tweet/media/<path:fs_path>')
+def get_media_from_filesystem(fs_path):
+    return flask.send_from_directory(app.config['T_MEDIA_FS_PATH'], fs_path)
 
 
 @app.route('/tweet/search.<ext>')
