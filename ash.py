@@ -2,6 +2,8 @@
 A Flask-based web server that serves Twitter Archive.
 '''
 
+from __future__ import annotations
+
 import re
 import pprint
 import itertools
