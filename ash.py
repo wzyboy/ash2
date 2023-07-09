@@ -23,7 +23,6 @@ class DefaultConfig:
     T_ES_HOST = 'http://localhost:9200'
     T_ES_INDEX = 'tweets-*,toots-*'
     T_MEDIA_FROM = 'direct'
-    T_EXTERNAL_TWEETS = False
 
 
 app = flask.Flask(__name__, static_url_path='/tweet/static')
@@ -322,10 +321,6 @@ def in_reply_to_link(tweet: dict) -> str:
 def replace_media_url(url: str) -> str:
     if app.config['T_MEDIA_FROM'] == 'direct':
         return url
-    elif app.config['T_MEDIA_FROM'] == 'filesystem':
-        parts = urlsplit(url)
-        fs_path = f'{parts.netloc}{parts.path}'
-        return flask.url_for('get_media_from_filesystem', fs_path=fs_path)
     elif app.config['T_MEDIA_FROM'] == 'mirror':
         mirrors = app.config.get('T_MEDIA_MIRRORS', {})
         for orig, repl in mirrors.items():
@@ -333,6 +328,10 @@ def replace_media_url(url: str) -> str:
                 return url.replace(orig, repl)
         else:
             return url
+    elif app.config['T_MEDIA_FROM'] == 'filesystem':
+        parts = urlsplit(url)
+        fs_path = f'{parts.netloc}{parts.path}'
+        return flask.url_for('get_media_from_filesystem', fs_path=fs_path)
     else:
         return url
 
