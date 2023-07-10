@@ -23,6 +23,17 @@ class TestSearchView:
         for kw in self.keywords:
             assert kw in resp.text
 
+    def test_search_with_basic_auth(self, client):
+        db = {
+            'username': 'foo',
+            'password': 'bar'
+        }
+        client.application.config['T_SEARCH_BASIC_AUTH'] = db
+        resp = client.get('/tweet/search.html')
+        assert resp.status_code == 401
+        resp = client.get('/tweet/search.html', auth=(db['username'], db['password']))
+        assert '<option value="wzyboy">' in resp.text
+
 
 class TestMediaReplacement:
     tweet_id = '1615425412921987074'
