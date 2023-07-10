@@ -17,6 +17,7 @@ from collections.abc import Iterator
 
 import flask
 import requests
+from flask_httpauth import HTTPBasicAuth
 from elasticsearch import Elasticsearch
 
 
@@ -50,6 +51,18 @@ if app.config.get('T_EXTERNAL_TWEETS'):
         raise RuntimeError(f'Failed to set up external Tweets support. Error from Twitter: {resp.json()}')
     bearer_token = resp.json()['access_token']
     app.config['T_TWITTER_TOKEN'] = bearer_token
+
+
+# Setup basic auth
+auth = HTTPBasicAuth()
+
+
+@auth.verify_password
+def verify_password(username, password):
+    db = app.config.get('T_SEARCH_BASIC_AUTH', {})
+    if username == db.get('username') and password == db.get('password'):
+        return username
+    return False
 
 
 def toot_to_tweet(status: dict) -> dict:
@@ -463,16 +476,10 @@ def get_media_from_filesystem(fs_path: str):
 
 
 @app.route('/tweet/search.<ext>')
+@auth.login_required
 def search_tweet(ext: str):
     if ext not in ('html', 'txt', 'json'):
         flask.abort(404)
-
-    basic_auth = app.config.get('T_SEARCH_BASIC_AUTH')
-    if basic_auth and (basic_auth != flask.request.authorization):
-        resp = flask.Response(
-            status=401, headers={'WWW-Authenticate': 'Basic realm="Auth Required"'}
-        )
-        return resp
 
     tdb = get_tdb()
     users = tdb.get_users()
