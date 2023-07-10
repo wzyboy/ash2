@@ -59,9 +59,11 @@ auth = HTTPBasicAuth()
 
 @auth.verify_password
 def verify_password(username, password):
-    db = app.config.get('T_SEARCH_BASIC_AUTH', {})
-    if username == db.get('username') and password == db.get('password'):
-        return username
+    if db := app.config.get('T_SEARCH_BASIC_AUTH', {}):
+        if username == db.get('username') and password == db.get('password'):
+            return True
+    else:
+        return True
     return False
 
 
