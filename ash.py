@@ -227,6 +227,19 @@ class TweetsDatabase(Mapping):
             }
             yield index
 
+    def get_tweet_raw(self, tweet_id: int | str) -> dict:
+        hits = self.es.search(query={
+            'term': {
+                '_id': tweet_id
+            }
+        })['hits']['hits']
+        try:
+            hit = hits[0]
+        except IndexError:
+            raise KeyError(f'Tweet ID {tweet_id} not found') from None
+        else:
+            return hit['_source']
+
 
 def get_tdb() -> TweetsDatabase:
     if not hasattr(flask.g, 'tdb'):
@@ -406,7 +419,10 @@ def get_tweet(tweet_id, ext):
     tdb = get_tdb()
     _is_external_tweet = False
     try:
-        tweet = tdb[tweet_id]
+        if ext == 'html':
+            tweet = tdb[tweet_id]
+        else:
+            tweet = tdb.get_tweet_raw(tweet_id)
     except KeyError:
         if app.config.get('T_EXTERNAL_TWEETS'):
             tweet = fetch_tweet(tweet_id)
