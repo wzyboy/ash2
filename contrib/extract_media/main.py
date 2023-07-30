@@ -23,7 +23,7 @@ class TwimgExtractor(scrapy.Spider):
     name = 'TwimgExtractor'
 
     def __init__(self, archive_dir: Path, output_dir: Path, **kwargs):
-        self.js_files = archive_dir.glob('data/*.js')
+        self.js_files = (archive_dir / 'data').rglob('*.js')
         self.media_dir = archive_dir / 'data/tweets_media'
         self.output_dir = output_dir
         super().__init__(**kwargs)
