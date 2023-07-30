@@ -80,6 +80,7 @@ def toot_to_tweet(status: dict) -> dict:
     }
     media = [
         {
+            'type': 'toot-' + att.get('type', ''),
             'media_url_https': att['url'],
             'description': att['description']
         }
@@ -447,8 +448,12 @@ def get_tweet(tweet_id, ext):
             videos.append({
                 'url': media_url,
             })
-        # type is photo
-        elif m.get('type') == 'photo':
+        elif m.get('type') == 'toot-video':
+            videos.append({
+                'url': m['media_url_https']
+            })
+        # type is photo (tweet) or image (toot)
+        elif m.get('type') in ('photo', 'toot-image'):
             media_url = m['media_url_https']
             if not _is_external_tweet:
                 media_url = replace_media_url(media_url)
