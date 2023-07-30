@@ -13,6 +13,7 @@ from urllib.parse import urlsplit
 
 from typing import Optional
 from collections.abc import Iterator
+from collections.abc import Iterable
 
 import scrapy
 from scrapy.crawler import CrawlerProcess
@@ -22,14 +23,14 @@ class TwimgExtractor(scrapy.Spider):
     name = 'TwimgExtractor'
 
     def __init__(self, archive_dir: Path, output_dir: Path, **kwargs):
-        self.tweets_js = archive_dir / 'data/tweets.js'
-        self.tweets_media = archive_dir / 'data/tweets_media'
+        self.js_files = archive_dir.glob('data/*.js')
+        self.media_dir = archive_dir / 'data/tweets_media'
         self.output_dir = output_dir
         super().__init__(**kwargs)
 
     def start_requests(self) -> Iterator[scrapy.Request]:
-        media_cache = TweetsMediaCache(self.tweets_media)
-        for url in self.find_urls(self.tweets_js):
+        media_cache = TweetsMediaCache(self.media_dir)
+        for url in self.find_urls(self.js_files):
             if cached := media_cache.get(url):
                 output = self.url_to_fs_path(url, self.output_dir)
                 output.parent.mkdir(parents=True, exist_ok=True)
@@ -53,16 +54,17 @@ class TwimgExtractor(scrapy.Spider):
         output.write_bytes(response.body)
 
     @staticmethod
-    def find_urls(tweet_js: Path) -> Iterator[str]:
+    def find_urls(js_files: Iterable[Path]) -> Iterator[str]:
         twimg_url_re = re.compile(r'(?<=")https://(pbs|video).twimg.com/.*?(?=")')
         seen = set()
-        with open(tweet_js, 'r') as f:
-            for line in f:
-                if matched := twimg_url_re.search(line):
-                    url = matched.group(0)
-                    if url not in seen:
-                        yield url
-                        seen.add(url)
+        for js_file in js_files:
+            with open(js_file, 'r') as f:
+                for line in f:
+                    if matched := twimg_url_re.search(line):
+                        url = matched.group(0)
+                        if url not in seen:
+                            yield url
+                            seen.add(url)
 
     @staticmethod
     def url_to_fs_path(url: str, parent: Path) -> Path:
@@ -71,9 +73,9 @@ class TwimgExtractor(scrapy.Spider):
 
 
 class TweetsMediaCache:
-    def __init__(self, tweets_media: Path) -> None:
+    def __init__(self, media_dir: Path) -> None:
         self._dict = dict()
-        for file in tweets_media.glob('*'):
+        for file in media_dir.glob('*'):
             key = file.name.split('-', 1)[1]
             self._dict[key] = file
 
