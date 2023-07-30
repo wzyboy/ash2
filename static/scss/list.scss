@@ -87,6 +87,13 @@
                 }
             }
 
+            .title {
+                font-style: italic;
+                padding-top: 0.2em;
+                padding-bottom: 0.5em;
+                border-bottom: 1px solid rgb(207, 217, 222);
+            }
+
             .full-text {
                 overflow-wrap: break-word;
                 white-space: pre-wrap;
