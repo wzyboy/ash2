@@ -452,8 +452,8 @@ def get_tweet(tweet_id, ext):
             videos.append({
                 'url': m['media_url_https']
             })
-        # type is photo (tweet) or image (toot)
-        elif m.get('type') in ('photo', 'toot-image'):
+        # type is photo (tweet) or image (toot) or None (legacy tweet)
+        elif m.get('type') in ('photo', 'toot-image', None):
             media_url = m['media_url_https']
             if not _is_external_tweet:
                 media_url = replace_media_url(media_url)
