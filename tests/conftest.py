@@ -34,6 +34,7 @@ def es_index(es_host: str) -> str:
     tweet_files = [
         here / 'fixtures/tweet_with_photo.json',
         here / 'fixtures/tweet_with_video.json',
+        here / 'fixtures/tweet_with_bare_user_dict.json',
     ]
     for tweet_file in tweet_files:
         tweet = json.loads(tweet_file.read_text())

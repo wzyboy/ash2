@@ -59,3 +59,22 @@ class TestMediaReplacement:
         client.application.config['T_MEDIA_FS_PATH'] = './media'
         resp = client.get(f'/tweet/{self.tweet_id}.html')
         assert f'/tweet/media/pbs.twimg.com/media/{self.media_filename}' in resp.text
+
+
+class TestUserDictInjection:
+    tweet_id = '1676023376631197696'
+    screen_name = 'alan_blake'
+    name = 'Test Injection Name'
+    profile_image_url_https = 'https://example.com/profile.png'
+
+    def test_injection(self, client):
+        user_dicts = {}
+        user_dicts[self.screen_name] = {
+            'name': self.name,
+            'profile_image_url_https': self.profile_image_url_https,
+        }
+        client.application.config['T_USER_DICTS'] = user_dicts
+        resp = client.get(f'/tweet/{self.tweet_id}.html')
+        assert f'<div class="screen-name">@{self.screen_name}</div>' in resp.text
+        assert f'<div class="name">{self.name}</div>' in resp.text
+        assert f'<img src="{self.profile_image_url_https}"' in resp.text
