@@ -1,1 +1,529 @@
-{"@timestamp": "2022-12-03T22:41:03+00:00", "contributors": null, "coordinates": null, "created_at": "Sat Dec 03 22:41:03 +0000 2022", "display_text_range": [0, 118], "entities": {"hashtags": [], "media": [{"display_url": "pic.twitter.com/CZTKmX68wh", "expanded_url": "https://twitter.com/dodo/status/1599161556507365376/video/1", "id": 1598448776582115328, "id_str": "1598448776582115328", "indices": [95, 118], "media_url": "http://pbs.twimg.com/media/Fi7VTHnUAAE1wRT.jpg", "media_url_https": "https://pbs.twimg.com/media/Fi7VTHnUAAE1wRT.jpg", "sizes": {"large": {"h": 1080, "resize": "fit", "w": 1080}, "medium": {"h": 1080, "resize": "fit", "w": 1080}, "small": {"h": 680, "resize": "fit", "w": 680}, "thumb": {"h": 150, "resize": "crop", "w": 150}}, "source_status_id": 1599161556507365376, "source_status_id_str": "1599161556507365376", "source_user_id": 1604444052, "source_user_id_str": "1604444052", "type": "photo", "url": "https://t.co/CZTKmX68wh"}], "symbols": [], "urls": [], "user_mentions": [{"id": 1604444052, "id_str": "1604444052", "indices": [3, 8], "name": "The Dodo", "screen_name": "dodo"}, {"id": 780516438113153025, "id_str": "780516438113153025", "indices": [80, 94], "name": "PlayforStrays", "screen_name": "PlayforStrays"}]}, "extended_entities": {"media": [{"additional_media_info": {"description": "", "embeddable": true, "monetizable": true, "source_user": {"contributors_enabled": false, "created_at": "Thu Jul 18 22:19:02 +0000 2013", "default_profile": false, "default_profile_image": false, "description": "For animal people.", "entities": {"description": {"urls": []}, "url": {"urls": [{"display_url": "thedodo.com", "expanded_url": "http://www.thedodo.com", "indices": [0, 23], "url": "https://t.co/vdKLF4z50p"}]}}, "favourites_count": 20883, "follow_request_sent": false, "followers_count": 2632250, "following": false, "friends_count": 4446, "geo_enabled": true, "has_extended_profile": false, "id": 1604444052, "id_str": "1604444052", "is_translation_enabled": true, "is_translator": false, "lang": null, "listed_count": 7063, "location": "New York, NY", "name": "The Dodo", "notifications": false, "profile_background_color": "A0E6F9", "profile_background_image_url": "http://abs.twimg.com/images/themes/theme1/bg.png", "profile_background_image_url_https": "https://abs.twimg.com/images/themes/theme1/bg.png", "profile_background_tile": true, "profile_banner_url": "https://pbs.twimg.com/profile_banners/1604444052/1619619087", "profile_image_url": "http://pbs.twimg.com/profile_images/1542905116168056832/3QZfoNql_normal.jpg", "profile_image_url_https": "https://pbs.twimg.com/profile_images/1542905116168056832/3QZfoNql_normal.jpg", "profile_link_color": "FA0011", "profile_sidebar_border_color": "FFFFFF", "profile_sidebar_fill_color": "DDEEF6", "profile_text_color": "333333", "profile_use_background_image": false, "protected": false, "screen_name": "dodo", "statuses_count": 79958, "time_zone": null, "translator_type": "none", "url": "https://t.co/vdKLF4z50p", "utc_offset": null, "verified": true, "withheld_in_countries": []}, "title": " Guy Finds Starving Dog On Deserted Island "}, "display_url": "pic.twitter.com/CZTKmX68wh", "expanded_url": "https://twitter.com/dodo/status/1599161556507365376/video/1", "id": 1598448776582115328, "id_str": "1598448776582115328", "indices": [95, 118], "media_url": "http://pbs.twimg.com/media/Fi7VTHnUAAE1wRT.jpg", "media_url_https": "https://pbs.twimg.com/media/Fi7VTHnUAAE1wRT.jpg", "sizes": {"large": {"h": 1080, "resize": "fit", "w": 1080}, "medium": {"h": 1080, "resize": "fit", "w": 1080}, "small": {"h": 680, "resize": "fit", "w": 680}, "thumb": {"h": 150, "resize": "crop", "w": 150}}, "source_status_id": 1599161556507365376, "source_status_id_str": "1599161556507365376", "source_user_id": 1604444052, "source_user_id_str": "1604444052", "type": "video", "url": "https://t.co/CZTKmX68wh", "video_info": {"aspect_ratio": [1, 1], "duration_millis": 212212, "variants": [{"bitrate": 1280000, "content_type": "video/mp4", "url": "https://video.twimg.com/amplify_video/1598448776582115328/vid/720x720/mn336TwuCUiapYKo.mp4?tag=16"}, {"bitrate": 832000, "content_type": "video/mp4", "url": "https://video.twimg.com/amplify_video/1598448776582115328/vid/540x540/c3ysrVHaOS3gS4pV.mp4?tag=16"}, {"bitrate": 8768000, "content_type": "video/mp4", "url": "https://video.twimg.com/amplify_video/1598448776582115328/vid/1080x1080/uj5eNeYYAafmOFL1.mp4?tag=16"}, {"bitrate": 432000, "content_type": "video/mp4", "url": "https://video.twimg.com/amplify_video/1598448776582115328/vid/320x320/2LKcsB380YiG24b8.mp4?tag=16"}, {"content_type": "application/x-mpegURL", "url": "https://video.twimg.com/amplify_video/1598448776582115328/pl/8ThFK3LUK7Z5dwno.m3u8?tag=16&container=fmp4"}]}}]}, "favorite_count": 0, "favorited": false, "full_text": "RT @dodo: This guy found a starving dog on a beach and knew what he had to do 💙 @playforstrays https://t.co/CZTKmX68wh", "geo": null, "id": 1599171888076722176, "id_str": "1599171888076722176", "in_reply_to_screen_name": null, "in_reply_to_status_id": null, "in_reply_to_status_id_str": null, "in_reply_to_user_id": null, "in_reply_to_user_id_str": null, "is_quote_status": false, "lang": "en", "place": null, "possibly_sensitive": false, "retweet_count": 131, "retweeted": false, "retweeted_status": {"contributors": null, "coordinates": null, "created_at": "Sat Dec 03 22:00:00 +0000 2022", "display_text_range": [0, 84], "entities": {"hashtags": [], "media": [{"display_url": "pic.twitter.com/CZTKmX68wh", "expanded_url": "https://twitter.com/dodo/status/1599161556507365376/video/1", "id": 1598448776582115328, "id_str": "1598448776582115328", "indices": [85, 108], "media_url": "http://pbs.twimg.com/media/Fi7VTHnUAAE1wRT.jpg", "media_url_https": "https://pbs.twimg.com/media/Fi7VTHnUAAE1wRT.jpg", "sizes": {"large": {"h": 1080, "resize": "fit", "w": 1080}, "medium": {"h": 1080, "resize": "fit", "w": 1080}, "small": {"h": 680, "resize": "fit", "w": 680}, "thumb": {"h": 150, "resize": "crop", "w": 150}}, "type": "photo", "url": "https://t.co/CZTKmX68wh"}], "symbols": [], "urls": [], "user_mentions": [{"id": 780516438113153025, "id_str": "780516438113153025", "indices": [70, 84], "name": "PlayforStrays", "screen_name": "PlayforStrays"}]}, "extended_entities": {"media": [{"additional_media_info": {"description": "", "embeddable": true, "monetizable": true, "title": " Guy Finds Starving Dog On Deserted Island "}, "display_url": "pic.twitter.com/CZTKmX68wh", "expanded_url": "https://twitter.com/dodo/status/1599161556507365376/video/1", "id": 1598448776582115328, "id_str": "1598448776582115328", "indices": [85, 108], "media_url": "http://pbs.twimg.com/media/Fi7VTHnUAAE1wRT.jpg", "media_url_https": "https://pbs.twimg.com/media/Fi7VTHnUAAE1wRT.jpg", "sizes": {"large": {"h": 1080, "resize": "fit", "w": 1080}, "medium": {"h": 1080, "resize": "fit", "w": 1080}, "small": {"h": 680, "resize": "fit", "w": 680}, "thumb": {"h": 150, "resize": "crop", "w": 150}}, "type": "video", "url": "https://t.co/CZTKmX68wh", "video_info": {"aspect_ratio": [1, 1], "duration_millis": 212212, "variants": [{"bitrate": 1280000, "content_type": "video/mp4", "url": "https://video.twimg.com/amplify_video/1598448776582115328/vid/720x720/mn336TwuCUiapYKo.mp4?tag=16"}, {"bitrate": 832000, "content_type": "video/mp4", "url": "https://video.twimg.com/amplify_video/1598448776582115328/vid/540x540/c3ysrVHaOS3gS4pV.mp4?tag=16"}, {"bitrate": 8768000, "content_type": "video/mp4", "url": "https://video.twimg.com/amplify_video/1598448776582115328/vid/1080x1080/uj5eNeYYAafmOFL1.mp4?tag=16"}, {"bitrate": 432000, "content_type": "video/mp4", "url": "https://video.twimg.com/amplify_video/1598448776582115328/vid/320x320/2LKcsB380YiG24b8.mp4?tag=16"}, {"content_type": "application/x-mpegURL", "url": "https://video.twimg.com/amplify_video/1598448776582115328/pl/8ThFK3LUK7Z5dwno.m3u8?tag=16&container=fmp4"}]}}]}, "favorite_count": 1102, "favorited": false, "full_text": "This guy found a starving dog on a beach and knew what he had to do 💙 @playforstrays https://t.co/CZTKmX68wh", "geo": null, "id": 1599161556507365376, "id_str": "1599161556507365376", "in_reply_to_screen_name": null, "in_reply_to_status_id": null, "in_reply_to_status_id_str": null, "in_reply_to_user_id": null, "in_reply_to_user_id_str": null, "is_quote_status": false, "lang": "en", "place": null, "possibly_sensitive": false, "retweet_count": 131, "retweeted": false, "source": "<a href=\"https://studio.twitter.com\" rel=\"nofollow\">Twitter Media Studio</a>", "truncated": false, "user": {"contributors_enabled": false, "created_at": "Thu Jul 18 22:19:02 +0000 2013", "default_profile": false, "default_profile_image": false, "description": "For animal people.", "entities": {"description": {"urls": []}, "url": {"urls": [{"display_url": "thedodo.com", "expanded_url": "http://www.thedodo.com", "indices": [0, 23], "url": "https://t.co/vdKLF4z50p"}]}}, "favourites_count": 20883, "follow_request_sent": false, "followers_count": 2632250, "following": false, "friends_count": 4446, "geo_enabled": true, "has_extended_profile": false, "id": 1604444052, "id_str": "1604444052", "is_translation_enabled": true, "is_translator": false, "lang": null, "listed_count": 7063, "location": "New York, NY", "name": "The Dodo", "notifications": false, "profile_background_color": "A0E6F9", "profile_background_image_url": "http://abs.twimg.com/images/themes/theme1/bg.png", "profile_background_image_url_https": "https://abs.twimg.com/images/themes/theme1/bg.png", "profile_background_tile": true, "profile_banner_url": "https://pbs.twimg.com/profile_banners/1604444052/1619619087", "profile_image_url": "http://pbs.twimg.com/profile_images/1542905116168056832/3QZfoNql_normal.jpg", "profile_image_url_https": "https://pbs.twimg.com/profile_images/1542905116168056832/3QZfoNql_normal.jpg", "profile_link_color": "FA0011", "profile_sidebar_border_color": "FFFFFF", "profile_sidebar_fill_color": "DDEEF6", "profile_text_color": "333333", "profile_use_background_image": false, "protected": false, "screen_name": "dodo", "statuses_count": 79958, "time_zone": null, "translator_type": "none", "url": "https://t.co/vdKLF4z50p", "utc_offset": null, "verified": true, "withheld_in_countries": []}}, "source": "<a href=\"https://mobile.twitter.com\" rel=\"nofollow\">Twitter Web App</a>", "truncated": false, "user": {"contributors_enabled": false, "created_at": "Sat Jan 05 08:10:03 +0000 2013", "default_profile": false, "default_profile_image": false, "description": "UX。日常推为主，摸鱼up主、@HondaJOJO 鉴定过的傻、好奇、梦多、颈椎病十级、不耐冻、漆黑意志。喜欢逛超市和公园。每天给 @wzyboy 做饭。", "entities": {"description": {"urls": []}, "url": {"urls": [{"display_url": "uucky.me", "expanded_url": "https://uucky.me", "indices": [0, 23], "url": "https://t.co/j80l9t44tU"}]}}, "favourites_count": 9164, "follow_request_sent": false, "followers_count": 2336, "following": true, "friends_count": 963, "geo_enabled": true, "has_extended_profile": true, "id": 1062473329, "id_str": "1062473329", "is_translation_enabled": false, "is_translator": false, "lang": null, "listed_count": 67, "location": "海女美術大学🍁", "name": "@uucky@o3o.ca", "notifications": true, "profile_background_color": "DBE9ED", "profile_background_image_url": "http://abs.twimg.com/images/themes/theme17/bg.gif", "profile_background_image_url_https": "https://abs.twimg.com/images/themes/theme17/bg.gif", "profile_background_tile": false, "profile_banner_url": "https://pbs.twimg.com/profile_banners/1062473329/1434218278", "profile_image_url": "http://pbs.twimg.com/profile_images/1591958226446213126/lOaklion_normal.jpg", "profile_image_url_https": "https://pbs.twimg.com/profile_images/1591958226446213126/lOaklion_normal.jpg", "profile_link_color": "FF0066", "profile_sidebar_border_color": "FFFFFF", "profile_sidebar_fill_color": "E6F6F9", "profile_text_color": "333333", "profile_use_background_image": true, "protected": true, "screen_name": "Uucky_Lee", "statuses_count": 42361, "time_zone": null, "translator_type": "regular", "url": "https://t.co/j80l9t44tU", "utc_offset": null, "verified": false, "withheld_in_countries": []}}
+{
+    "@timestamp": "2022-12-03T22:41:03+00:00",
+    "contributors": null,
+    "coordinates": null,
+    "created_at": "Sat Dec 03 22:41:03 +0000 2022",
+    "display_text_range": [
+        0,
+        118
+    ],
+    "entities": {
+        "hashtags": [],
+        "media": [
+            {
+                "display_url": "pic.twitter.com/CZTKmX68wh",
+                "expanded_url": "https://twitter.com/dodo/status/1599161556507365376/video/1",
+                "id": 1598448776582115328,
+                "id_str": "1598448776582115328",
+                "indices": [
+                    95,
+                    118
+                ],
+                "media_url": "http://pbs.twimg.com/media/Fi7VTHnUAAE1wRT.jpg",
+                "media_url_https": "https://pbs.twimg.com/media/Fi7VTHnUAAE1wRT.jpg",
+                "sizes": {
+                    "large": {
+                        "h": 1080,
+                        "resize": "fit",
+                        "w": 1080
+                    },
+                    "medium": {
+                        "h": 1080,
+                        "resize": "fit",
+                        "w": 1080
+                    },
+                    "small": {
+                        "h": 680,
+                        "resize": "fit",
+                        "w": 680
+                    },
+                    "thumb": {
+                        "h": 150,
+                        "resize": "crop",
+                        "w": 150
+                    }
+                },
+                "source_status_id": 1599161556507365376,
+                "source_status_id_str": "1599161556507365376",
+                "source_user_id": 1604444052,
+                "source_user_id_str": "1604444052",
+                "type": "photo",
+                "url": "https://t.co/CZTKmX68wh"
+            }
+        ],
+        "symbols": [],
+        "urls": [],
+        "user_mentions": [
+            {
+                "id": 1604444052,
+                "id_str": "1604444052",
+                "indices": [
+                    3,
+                    8
+                ],
+                "name": "The Dodo",
+                "screen_name": "dodo"
+            },
+            {
+                "id": 780516438113153025,
+                "id_str": "780516438113153025",
+                "indices": [
+                    80,
+                    94
+                ],
+                "name": "PlayforStrays",
+                "screen_name": "PlayforStrays"
+            }
+        ]
+    },
+    "extended_entities": {
+        "media": [
+            {
+                "additional_media_info": {
+                    "description": "",
+                    "embeddable": true,
+                    "monetizable": true,
+                    "source_user": {
+                        "contributors_enabled": false,
+                        "created_at": "Thu Jul 18 22:19:02 +0000 2013",
+                        "default_profile": false,
+                        "default_profile_image": false,
+                        "description": "For animal people.",
+                        "entities": {
+                            "description": {
+                                "urls": []
+                            },
+                            "url": {
+                                "urls": [
+                                    {
+                                        "display_url": "thedodo.com",
+                                        "expanded_url": "http://www.thedodo.com",
+                                        "indices": [
+                                            0,
+                                            23
+                                        ],
+                                        "url": "https://t.co/vdKLF4z50p"
+                                    }
+                                ]
+                            }
+                        },
+                        "favourites_count": 20883,
+                        "follow_request_sent": false,
+                        "followers_count": 2632250,
+                        "following": false,
+                        "friends_count": 4446,
+                        "geo_enabled": true,
+                        "has_extended_profile": false,
+                        "id": 1604444052,
+                        "id_str": "1604444052",
+                        "is_translation_enabled": true,
+                        "is_translator": false,
+                        "lang": null,
+                        "listed_count": 7063,
+                        "location": "New York, NY",
+                        "name": "The Dodo",
+                        "notifications": false,
+                        "profile_background_color": "A0E6F9",
+                        "profile_background_image_url": "http://abs.twimg.com/images/themes/theme1/bg.png",
+                        "profile_background_image_url_https": "https://abs.twimg.com/images/themes/theme1/bg.png",
+                        "profile_background_tile": true,
+                        "profile_banner_url": "https://pbs.twimg.com/profile_banners/1604444052/1619619087",
+                        "profile_image_url": "http://pbs.twimg.com/profile_images/1542905116168056832/3QZfoNql_normal.jpg",
+                        "profile_image_url_https": "https://pbs.twimg.com/profile_images/1542905116168056832/3QZfoNql_normal.jpg",
+                        "profile_link_color": "FA0011",
+                        "profile_sidebar_border_color": "FFFFFF",
+                        "profile_sidebar_fill_color": "DDEEF6",
+                        "profile_text_color": "333333",
+                        "profile_use_background_image": false,
+                        "protected": false,
+                        "screen_name": "dodo",
+                        "statuses_count": 79958,
+                        "time_zone": null,
+                        "translator_type": "none",
+                        "url": "https://t.co/vdKLF4z50p",
+                        "utc_offset": null,
+                        "verified": true,
+                        "withheld_in_countries": []
+                    },
+                    "title": " Guy Finds Starving Dog On Deserted Island "
+                },
+                "display_url": "pic.twitter.com/CZTKmX68wh",
+                "expanded_url": "https://twitter.com/dodo/status/1599161556507365376/video/1",
+                "id": 1598448776582115328,
+                "id_str": "1598448776582115328",
+                "indices": [
+                    95,
+                    118
+                ],
+                "media_url": "http://pbs.twimg.com/media/Fi7VTHnUAAE1wRT.jpg",
+                "media_url_https": "https://pbs.twimg.com/media/Fi7VTHnUAAE1wRT.jpg",
+                "sizes": {
+                    "large": {
+                        "h": 1080,
+                        "resize": "fit",
+                        "w": 1080
+                    },
+                    "medium": {
+                        "h": 1080,
+                        "resize": "fit",
+                        "w": 1080
+                    },
+                    "small": {
+                        "h": 680,
+                        "resize": "fit",
+                        "w": 680
+                    },
+                    "thumb": {
+                        "h": 150,
+                        "resize": "crop",
+                        "w": 150
+                    }
+                },
+                "source_status_id": 1599161556507365376,
+                "source_status_id_str": "1599161556507365376",
+                "source_user_id": 1604444052,
+                "source_user_id_str": "1604444052",
+                "type": "video",
+                "url": "https://t.co/CZTKmX68wh",
+                "video_info": {
+                    "aspect_ratio": [
+                        1,
+                        1
+                    ],
+                    "duration_millis": 212212,
+                    "variants": [
+                        {
+                            "bitrate": 1280000,
+                            "content_type": "video/mp4",
+                            "url": "https://video.twimg.com/amplify_video/1598448776582115328/vid/720x720/mn336TwuCUiapYKo.mp4?tag=16"
+                        },
+                        {
+                            "bitrate": 832000,
+                            "content_type": "video/mp4",
+                            "url": "https://video.twimg.com/amplify_video/1598448776582115328/vid/540x540/c3ysrVHaOS3gS4pV.mp4?tag=16"
+                        },
+                        {
+                            "bitrate": 8768000,
+                            "content_type": "video/mp4",
+                            "url": "https://video.twimg.com/amplify_video/1598448776582115328/vid/1080x1080/uj5eNeYYAafmOFL1.mp4?tag=16"
+                        },
+                        {
+                            "bitrate": 432000,
+                            "content_type": "video/mp4",
+                            "url": "https://video.twimg.com/amplify_video/1598448776582115328/vid/320x320/2LKcsB380YiG24b8.mp4?tag=16"
+                        },
+                        {
+                            "content_type": "application/x-mpegURL",
+                            "url": "https://video.twimg.com/amplify_video/1598448776582115328/pl/8ThFK3LUK7Z5dwno.m3u8?tag=16&container=fmp4"
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "favorite_count": 0,
+    "favorited": false,
+    "full_text": "RT @dodo: This guy found a starving dog on a beach and knew what he had to do 💙 @playforstrays https://t.co/CZTKmX68wh",
+    "geo": null,
+    "id": 1599171888076722176,
+    "id_str": "1599171888076722176",
+    "in_reply_to_screen_name": null,
+    "in_reply_to_status_id": null,
+    "in_reply_to_status_id_str": null,
+    "in_reply_to_user_id": null,
+    "in_reply_to_user_id_str": null,
+    "is_quote_status": false,
+    "lang": "en",
+    "place": null,
+    "possibly_sensitive": false,
+    "retweet_count": 131,
+    "retweeted": false,
+    "retweeted_status": {
+        "contributors": null,
+        "coordinates": null,
+        "created_at": "Sat Dec 03 22:00:00 +0000 2022",
+        "display_text_range": [
+            0,
+            84
+        ],
+        "entities": {
+            "hashtags": [],
+            "media": [
+                {
+                    "display_url": "pic.twitter.com/CZTKmX68wh",
+                    "expanded_url": "https://twitter.com/dodo/status/1599161556507365376/video/1",
+                    "id": 1598448776582115328,
+                    "id_str": "1598448776582115328",
+                    "indices": [
+                        85,
+                        108
+                    ],
+                    "media_url": "http://pbs.twimg.com/media/Fi7VTHnUAAE1wRT.jpg",
+                    "media_url_https": "https://pbs.twimg.com/media/Fi7VTHnUAAE1wRT.jpg",
+                    "sizes": {
+                        "large": {
+                            "h": 1080,
+                            "resize": "fit",
+                            "w": 1080
+                        },
+                        "medium": {
+                            "h": 1080,
+                            "resize": "fit",
+                            "w": 1080
+                        },
+                        "small": {
+                            "h": 680,
+                            "resize": "fit",
+                            "w": 680
+                        },
+                        "thumb": {
+                            "h": 150,
+                            "resize": "crop",
+                            "w": 150
+                        }
+                    },
+                    "type": "photo",
+                    "url": "https://t.co/CZTKmX68wh"
+                }
+            ],
+            "symbols": [],
+            "urls": [],
+            "user_mentions": [
+                {
+                    "id": 780516438113153025,
+                    "id_str": "780516438113153025",
+                    "indices": [
+                        70,
+                        84
+                    ],
+                    "name": "PlayforStrays",
+                    "screen_name": "PlayforStrays"
+                }
+            ]
+        },
+        "extended_entities": {
+            "media": [
+                {
+                    "additional_media_info": {
+                        "description": "",
+                        "embeddable": true,
+                        "monetizable": true,
+                        "title": " Guy Finds Starving Dog On Deserted Island "
+                    },
+                    "display_url": "pic.twitter.com/CZTKmX68wh",
+                    "expanded_url": "https://twitter.com/dodo/status/1599161556507365376/video/1",
+                    "id": 1598448776582115328,
+                    "id_str": "1598448776582115328",
+                    "indices": [
+                        85,
+                        108
+                    ],
+                    "media_url": "http://pbs.twimg.com/media/Fi7VTHnUAAE1wRT.jpg",
+                    "media_url_https": "https://pbs.twimg.com/media/Fi7VTHnUAAE1wRT.jpg",
+                    "sizes": {
+                        "large": {
+                            "h": 1080,
+                            "resize": "fit",
+                            "w": 1080
+                        },
+                        "medium": {
+                            "h": 1080,
+                            "resize": "fit",
+                            "w": 1080
+                        },
+                        "small": {
+                            "h": 680,
+                            "resize": "fit",
+                            "w": 680
+                        },
+                        "thumb": {
+                            "h": 150,
+                            "resize": "crop",
+                            "w": 150
+                        }
+                    },
+                    "type": "video",
+                    "url": "https://t.co/CZTKmX68wh",
+                    "video_info": {
+                        "aspect_ratio": [
+                            1,
+                            1
+                        ],
+                        "duration_millis": 212212,
+                        "variants": [
+                            {
+                                "bitrate": 1280000,
+                                "content_type": "video/mp4",
+                                "url": "https://video.twimg.com/amplify_video/1598448776582115328/vid/720x720/mn336TwuCUiapYKo.mp4?tag=16"
+                            },
+                            {
+                                "bitrate": 832000,
+                                "content_type": "video/mp4",
+                                "url": "https://video.twimg.com/amplify_video/1598448776582115328/vid/540x540/c3ysrVHaOS3gS4pV.mp4?tag=16"
+                            },
+                            {
+                                "bitrate": 8768000,
+                                "content_type": "video/mp4",
+                                "url": "https://video.twimg.com/amplify_video/1598448776582115328/vid/1080x1080/uj5eNeYYAafmOFL1.mp4?tag=16"
+                            },
+                            {
+                                "bitrate": 432000,
+                                "content_type": "video/mp4",
+                                "url": "https://video.twimg.com/amplify_video/1598448776582115328/vid/320x320/2LKcsB380YiG24b8.mp4?tag=16"
+                            },
+                            {
+                                "content_type": "application/x-mpegURL",
+                                "url": "https://video.twimg.com/amplify_video/1598448776582115328/pl/8ThFK3LUK7Z5dwno.m3u8?tag=16&container=fmp4"
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        "favorite_count": 1102,
+        "favorited": false,
+        "full_text": "This guy found a starving dog on a beach and knew what he had to do 💙 @playforstrays https://t.co/CZTKmX68wh",
+        "geo": null,
+        "id": 1599161556507365376,
+        "id_str": "1599161556507365376",
+        "in_reply_to_screen_name": null,
+        "in_reply_to_status_id": null,
+        "in_reply_to_status_id_str": null,
+        "in_reply_to_user_id": null,
+        "in_reply_to_user_id_str": null,
+        "is_quote_status": false,
+        "lang": "en",
+        "place": null,
+        "possibly_sensitive": false,
+        "retweet_count": 131,
+        "retweeted": false,
+        "source": "<a href=\"https://studio.twitter.com\" rel=\"nofollow\">Twitter Media Studio</a>",
+        "truncated": false,
+        "user": {
+            "contributors_enabled": false,
+            "created_at": "Thu Jul 18 22:19:02 +0000 2013",
+            "default_profile": false,
+            "default_profile_image": false,
+            "description": "For animal people.",
+            "entities": {
+                "description": {
+                    "urls": []
+                },
+                "url": {
+                    "urls": [
+                        {
+                            "display_url": "thedodo.com",
+                            "expanded_url": "http://www.thedodo.com",
+                            "indices": [
+                                0,
+                                23
+                            ],
+                            "url": "https://t.co/vdKLF4z50p"
+                        }
+                    ]
+                }
+            },
+            "favourites_count": 20883,
+            "follow_request_sent": false,
+            "followers_count": 2632250,
+            "following": false,
+            "friends_count": 4446,
+            "geo_enabled": true,
+            "has_extended_profile": false,
+            "id": 1604444052,
+            "id_str": "1604444052",
+            "is_translation_enabled": true,
+            "is_translator": false,
+            "lang": null,
+            "listed_count": 7063,
+            "location": "New York, NY",
+            "name": "The Dodo",
+            "notifications": false,
+            "profile_background_color": "A0E6F9",
+            "profile_background_image_url": "http://abs.twimg.com/images/themes/theme1/bg.png",
+            "profile_background_image_url_https": "https://abs.twimg.com/images/themes/theme1/bg.png",
+            "profile_background_tile": true,
+            "profile_banner_url": "https://pbs.twimg.com/profile_banners/1604444052/1619619087",
+            "profile_image_url": "http://pbs.twimg.com/profile_images/1542905116168056832/3QZfoNql_normal.jpg",
+            "profile_image_url_https": "https://pbs.twimg.com/profile_images/1542905116168056832/3QZfoNql_normal.jpg",
+            "profile_link_color": "FA0011",
+            "profile_sidebar_border_color": "FFFFFF",
+            "profile_sidebar_fill_color": "DDEEF6",
+            "profile_text_color": "333333",
+            "profile_use_background_image": false,
+            "protected": false,
+            "screen_name": "dodo",
+            "statuses_count": 79958,
+            "time_zone": null,
+            "translator_type": "none",
+            "url": "https://t.co/vdKLF4z50p",
+            "utc_offset": null,
+            "verified": true,
+            "withheld_in_countries": []
+        }
+    },
+    "source": "<a href=\"https://mobile.twitter.com\" rel=\"nofollow\">Twitter Web App</a>",
+    "truncated": false,
+    "user": {
+        "contributors_enabled": false,
+        "created_at": "Sat Jan 05 08:10:03 +0000 2013",
+        "default_profile": false,
+        "default_profile_image": false,
+        "description": "UX。日常推为主，摸鱼up主、@HondaJOJO 鉴定过的傻、好奇、梦多、颈椎病十级、不耐冻、漆黑意志。喜欢逛超市和公园。每天给 @wzyboy 做饭。",
+        "entities": {
+            "description": {
+                "urls": []
+            },
+            "url": {
+                "urls": [
+                    {
+                        "display_url": "uucky.me",
+                        "expanded_url": "https://uucky.me",
+                        "indices": [
+                            0,
+                            23
+                        ],
+                        "url": "https://t.co/j80l9t44tU"
+                    }
+                ]
+            }
+        },
+        "favourites_count": 9164,
+        "follow_request_sent": false,
+        "followers_count": 2336,
+        "following": true,
+        "friends_count": 963,
+        "geo_enabled": true,
+        "has_extended_profile": true,
+        "id": 1062473329,
+        "id_str": "1062473329",
+        "is_translation_enabled": false,
+        "is_translator": false,
+        "lang": null,
+        "listed_count": 67,
+        "location": "海女美術大学🍁",
+        "name": "@uucky@o3o.ca",
+        "notifications": true,
+        "profile_background_color": "DBE9ED",
+        "profile_background_image_url": "http://abs.twimg.com/images/themes/theme17/bg.gif",
+        "profile_background_image_url_https": "https://abs.twimg.com/images/themes/theme17/bg.gif",
+        "profile_background_tile": false,
+        "profile_banner_url": "https://pbs.twimg.com/profile_banners/1062473329/1434218278",
+        "profile_image_url": "http://pbs.twimg.com/profile_images/1591958226446213126/lOaklion_normal.jpg",
+        "profile_image_url_https": "https://pbs.twimg.com/profile_images/1591958226446213126/lOaklion_normal.jpg",
+        "profile_link_color": "FF0066",
+        "profile_sidebar_border_color": "FFFFFF",
+        "profile_sidebar_fill_color": "E6F6F9",
+        "profile_text_color": "333333",
+        "profile_use_background_image": true,
+        "protected": true,
+        "screen_name": "Uucky_Lee",
+        "statuses_count": 42361,
+        "time_zone": null,
+        "translator_type": "regular",
+        "url": "https://t.co/j80l9t44tU",
+        "utc_offset": null,
+        "verified": false,
+        "withheld_in_countries": []
+    }
+}
