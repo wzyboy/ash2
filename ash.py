@@ -97,6 +97,14 @@ def toot_to_tweet(status: dict) -> dict:
     return status
 
 
+def inject_user_dict(tweet: dict) -> dict:
+    if user_dicts := app.config.get('T_USER_DICTS'):
+        screen_name = tweet['user']['screen_name']
+        if user_dict := user_dicts.get(screen_name):
+            tweet['user'].update(user_dict)
+    return tweet
+
+
 class TweetsDatabase(Mapping):
 
     def __init__(self, es_host: str, es_index: str) -> None:
@@ -381,6 +389,7 @@ def index():
     else:
         latest_tweets = [tdb[tid] for tid in itertools.islice(reversed(tdb), 10)]
 
+    latest_tweets = map(inject_user_dict, latest_tweets)
     rendered = flask.render_template(
         'index.html',
         total_tweets=total_tweets,
@@ -481,13 +490,8 @@ def get_tweet(tweet_id, ext):
         else:
             pass
 
-    # User dict injection
-    if user_dicts := app.config.get('T_USER_DICTS'):
-        screen_name = tweet['user']['screen_name']
-        if user_dict := user_dicts.get(screen_name):
-            tweet['user'].update(user_dict)
-
     # Render HTML
+    tweet = inject_user_dict(tweet)
     rendered = flask.render_template(
         'tweet.html',
         tweet=tweet,
@@ -538,6 +542,7 @@ def search_tweet(ext: str):
         return resp
 
     # HTML output
+    tweets = [inject_user_dict(t) for t in tweets]
     rendered = flask.render_template(
         'search.html',
         keyword=keyword,
