@@ -481,6 +481,12 @@ def get_tweet(tweet_id, ext):
         else:
             pass
 
+    # User dict injection
+    if user_dicts := app.config.get('T_USER_DICTS'):
+        screen_name = tweet['user']['screen_name']
+        if user_dict := user_dicts.get(screen_name):
+            tweet['user'].update(user_dict)
+
     # Render HTML
     rendered = flask.render_template(
         'tweet.html',

@@ -32,3 +32,12 @@ class Config:
 
     # Default user to show on index
     #T_DEFAULT_USER = 'jack'
+
+    # User dict injection
+    # For imported tweets that has minimal `user` dict, this can be used to suppliy additional keys
+    T_USER_DICTS = {
+        'jack': {
+            'name': 'Jack Dorsey',
+            'profile_image_url_https': 'https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_400x400.jpg',
+        }
+    }
