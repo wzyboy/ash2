@@ -1,0 +1,37 @@
+{
+    "@timestamp": "2023-07-04T00:21:26+00:00",
+    "created_at": "Tue Jul 04 00:21:26 +0000 2023",
+    "display_text_range": [
+        "0",
+        "45"
+    ],
+    "edit_info": {
+        "initial": {
+            "editTweetIds": [
+                "1676023376631197696"
+            ],
+            "editableUntil": "2023-07-04T01:21:26.000Z",
+            "editsRemaining": "5",
+            "isEditEligible": true
+        }
+    },
+    "entities": {
+        "hashtags": [],
+        "symbols": [],
+        "urls": [],
+        "user_mentions": []
+    },
+    "favorite_count": "5",
+    "favorited": false,
+    "full_text": "想不到Twitter比Facebook先死... 🔜@alan_blake@dabr.ca",
+    "id": "1676023376631197696",
+    "id_str": "1676023376631197696",
+    "lang": "ja",
+    "retweet_count": "0",
+    "retweeted": false,
+    "source": "<a href=\"http://twitter.com/download/android\" rel=\"nofollow\">Twitter for Android</a>",
+    "truncated": false,
+    "user": {
+        "screen_name": "alan_blake"
+    }
+}
