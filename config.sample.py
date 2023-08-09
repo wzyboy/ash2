@@ -11,8 +11,8 @@ class Config:
     # filesystem: Media files are served from T_MEDIA_FS_PATH
     T_MEDIA_FROM = 'direct'
 
-    # You can also use mirror domains in case your Twitter account no longer exists
-    # This is just simple string substitution
+    # You can also use mirror domains in case your Twitter account no longer
+    # exists. This is just simple string substitution
     T_MEDIA_MIRRORS = {
         'pbs.twimg.com': 'd1111111111.cloudfront.net/pbs.twimg.com',
         'video.twimg.com': 'd1111111111.cloudfront.net/video.twimg.com',
@@ -33,8 +33,8 @@ class Config:
     # Default user to show on index
     #T_DEFAULT_USER = 'jack'
 
-    # User dict injection
-    # For imported tweets that has minimal `user` dict, this can be used to suppliy additional keys
+    # For imported tweets that has minimal `user` dict, this can be used to
+    # inject additional keys.
     T_USER_DICTS = {
         'jack': {
             'name': 'Jack Dorsey',
