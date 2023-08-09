@@ -1,7 +1,7 @@
 class TestIndexView:
     def test_index(self, client):
         resp = client.get('/tweet/')
-        assert '<p>Number of Tweets: <code>2</code>' in resp.text
+        assert '<p>Number of Tweets: <code>3</code>' in resp.text
         assert 'wzyboy' in resp.text
         assert 'Uucky_Lee' in resp.text
 
