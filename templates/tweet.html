@@ -11,7 +11,7 @@ vim: ft=jinja.html:
 <meta property="og:title" content="@{{ tweet.user.screen_name }}" />
 <meta property="og:description" content="{{ tweet.content_text or tweet.full_text or tweet.text }}" />
 {%- if images %}
-<meta property="og:image" content="{{ image[0].url }}">
+<meta property="og:image" content="{{ images[0].url }}">
 {%- endif %}
 {% endblock %}
 
