@@ -79,7 +79,7 @@ vim: ft=jinja.html:
     </div>
     {%- else %}
     <div class="view-on-twitter">
-        <a class="twitter-link" href="{{ get_tweet_link(tweet.user.screen_name, tweet.id, True) }}">
+        <a class="twitter-link" href="{{ get_tweet_link(tweet.id, True) }}">
             <span class="link-text">View on Twitter</span>
         </a>
     </div>

@@ -12,7 +12,6 @@ from datetime import datetime
 from functools import lru_cache
 from urllib.parse import urlsplit
 from collections.abc import Mapping
-
 from collections.abc import Iterator
 
 import flask
@@ -258,12 +257,18 @@ def get_tdb() -> TweetsDatabase:
     return flask.g.tdb
 
 
+@lru_cache(maxsize=1024)
 @app.template_global('get_tweet_link')
-def get_tweet_link(screen_name: str, tweet_id: str | int, original_link: bool = False) -> str:
-    if original_link:
-        return f'https://twitter.com/{screen_name}/status/{tweet_id}'
-    else:
+def get_tweet_link(tweet_id: int | str, use_original_link: bool = False) -> str:
+    original_link = f'https://twitter.com/_/status/{tweet_id}'
+    if use_original_link:
+        return original_link
+
+    tdb = flask.g.tdb
+    if tdb.get(tweet_id):
         return flask.url_for('get_tweet', tweet_id=tweet_id, ext='html')
+    else:
+        return original_link
 
 
 @app.template_filter('format_tweet_text')
@@ -317,7 +322,7 @@ def format_tweet_text(tweet: dict) -> str:
     # Twitter Archive always has "retweeted" set to false (identical to a
     # "traditional" RT.
     if retweeted_status := tweet.get('retweeted_status'):
-        link = get_tweet_link('status', retweeted_status['id'])
+        link = get_tweet_link(retweeted_status['id'])
         a = f'<a href="{link}">RT</a>'
         tweet_text = tweet_text.replace('RT', a, 1)
 
@@ -354,7 +359,7 @@ def in_reply_to_link(tweet: dict) -> str:
         else:
             return tweet['url']
     else:  # Twitter
-        return get_tweet_link('status', tweet['in_reply_to_status_id'])
+        return get_tweet_link(tweet['in_reply_to_status_id'])
 
 
 def replace_media_url(url: str) -> str:
