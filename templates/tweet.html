@@ -7,8 +7,12 @@ vim: ft=jinja.html:
 {% block title %}Tweet ID {{ tweet['id'] }}{% endblock %}
 
 {% block head_meta %}
+<meta name="description" content="{{ tweet.content_text or tweet.full_text or tweet.text }}" />
 <meta property="og:title" content="@{{ tweet.user.screen_name }}" />
 <meta property="og:description" content="{{ tweet.content_text or tweet.full_text or tweet.text }}" />
+{%- if images %}
+<meta property="og:image" content="{{ image[0].url }}">
+{%- endif %}
 {% endblock %}
 
 
