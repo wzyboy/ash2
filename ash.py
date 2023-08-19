@@ -471,7 +471,7 @@ def get_tweet(tweet_id, ext):
         # type is video
         if m.get('type') == 'video':
             variants = m['video_info']['variants']
-            hq_variant = max(variants, key=lambda v: v.get('bitrate', -1))
+            hq_variant = max(variants, key=lambda v: int(v.get('bitrate', -1)))
             media_url = hq_variant['url']
             if not _is_external_tweet:
                 media_url = replace_media_url(media_url)
