@@ -40,7 +40,7 @@ vim: ft=jinja.html:
         {%- if tweet.spoiler_text %}
         <div class="title">{{ tweet.spoiler_text }}</div>
         {%- endif %}
-        <div class="full-text">{{ tweet | format_tweet_text | safe }}</div>
+        <div class="full-text">{{ tweet | format_tweet_text | safe }}{%- if tweet.media_attachments %}<small> [media]</small>{%- endif %}</div>
 
     </div>
 
