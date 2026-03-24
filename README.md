@@ -34,18 +34,11 @@ Check out `./contrib/extract_media/main.py` for a helper script to extract media
 
 ## Running
 
-Setting up a venv is recommended:
-
-```bash
-$ python3 -m venv venv
-$ source venv/bin/activate
-```
-
 For development / quick start:
 
 ```bash
-$ (venv) pip install -r requirements.txt
-$ (venv) make dev-server
+$ uv sync --dev
+$ make dev-server
 ```
 
 You could now view and search your Twitter Archive at: [http://localhost:3026/](http://localhost:3026/)
