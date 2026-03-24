@@ -6,7 +6,7 @@ readme = "README.md"
 authors = [
     { name = "Zhuoyun Wei", email = "wzyboy@wzyboy.org" }
 ]
-requires-python = ">=3.13"
+requires-python = ">=3.10"
 dependencies = [
     "blinker==1.6.2",
     "certifi==2023.5.7",
