@@ -15,6 +15,7 @@ dependencies = [
     { name = "elasticsearch" },
     { name = "flask" },
     { name = "flask-httpauth" },
+    { name = "gunicorn" },
     { name = "idna" },
     { name = "itsdangerous" },
     { name = "jinja2" },
@@ -39,6 +40,7 @@ requires-dist = [
     { name = "elasticsearch", specifier = "==8.8.0" },
     { name = "flask", specifier = "==2.3.2" },
     { name = "flask-httpauth", specifier = "==4.8.0" },
+    { name = "gunicorn", specifier = ">=25.2.0" },
     { name = "idna", specifier = "==3.4" },
     { name = "itsdangerous", specifier = "==2.1.2" },
     { name = "jinja2", specifier = "==3.1.2" },
@@ -192,6 +194,18 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/22/21/0160aa217c4df74e44a04919213f9c8af7e68551c10267b055f1e09d421c/Flask-HTTPAuth-4.8.0.tar.gz", hash = "sha256:66568a05bc73942c65f1e2201ae746295816dc009edd84b482c44c758d75097a", size = 230314, upload-time = "2023-04-27T09:25:57.48Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/83/c4/e64ace124b927cd1f29270050ee0e0ef5faad75a512c5c8d733961dda9ca/Flask_HTTPAuth-4.8.0-py3-none-any.whl", hash = "sha256:a58fedd09989b9975448eef04806b096a3964a7feeebc0a78831ff55685b62b0", size = 6958, upload-time = "2023-04-27T09:25:55.803Z" },
+]
+
+[[package]]
+name = "gunicorn"
+version = "25.2.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "packaging" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/dd/13/dd3f8e40ea3ee907a6cbf3d1f1f81afcc3ecd0087d313baabfe95372f15c/gunicorn-25.2.0.tar.gz", hash = "sha256:10bd7adb36d44945d97d0a1fdf9a0fb086ae9c7b39e56b4dece8555a6bf4a09c", size = 632709, upload-time = "2026-03-24T22:49:54.433Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/11/53/fb024445837e02cd5cf989cf349bfac6f3f433c05184ea5d49c8ade751c6/gunicorn-25.2.0-py3-none-any.whl", hash = "sha256:88f5b444d0055bf298435384af7294f325e2273fd37ba9f9ff7b98e0a1e5dfdc", size = 211659, upload-time = "2026-03-24T22:49:52.528Z" },
 ]
 
 [[package]]
